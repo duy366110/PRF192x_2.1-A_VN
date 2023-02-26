@@ -20,7 +20,7 @@
 
 let bills = [125, 555, 44];
 let tips = [];
-let total = 0;
+let totals = [];
 
 function calcBillPercent(percent) {
     return (percent / 100);
@@ -33,8 +33,10 @@ function calcTip(bill) {
 bills.forEach((e, index) => {
     let tip = calcTip(e);
     tips.push(tip);
-    total += tip;
+    totals.push(e + tip);
 })
 
+
+
 console.log(tips);
-console.log(total);
+console.log(totals);
