@@ -1,0 +1,32 @@
+.silde-bar ul {
+    list-style-type: none;
+}
+
+.silde-bar ul li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.silde-bar .silde-bar--item {
+    background-color: transparent;
+    border: unset;
+    display: inline-block;
+    padding: 10px;
+}
+
+.silde-bar--item:hover, .silde-bar--item.active {
+    background-color: var(--two-color);
+}
+
+.silde-bar .silde-bar--item:focus {
+    border: unset;
+    outline: unset;
+}
+
+.silde-bar .silde-bar--item svg {
+    height: 24px;
+    stroke: #ffffff;
+    width: 24px;
+}
