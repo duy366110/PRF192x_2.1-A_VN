@@ -1,0 +1,8 @@
+footer .silde-bar {
+    background-color: var(--main-color);
+    left: 0px;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    width: 4.4rem;
+}

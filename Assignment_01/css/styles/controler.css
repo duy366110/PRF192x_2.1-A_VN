@@ -1,0 +1,31 @@
+.controller-pet {
+    width: 50%;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+}
+
+.form-group .pet-title {
+    display: inline-block;
+    width: 20rem;
+}
+
+.form-group-double .pet-title {
+    display: inline-block;
+    width: 23.5rem;
+}
+
+.form-group-double .pet-titles {
+    display: block;
+    padding-right: 5px;
+    text-align: right;
+    width: 7.5rem;
+}
+
+.form-group-double .vaccinated-option::before {
+    content: '';
+    display: block;
+    width: 6.6rem;
+}
