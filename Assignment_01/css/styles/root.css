@@ -57,6 +57,14 @@ a:hover, a:active, a:visited, a:focus {
 }
 
 /* SECTION */
-header, main {
-    padding-left: 4.5rem;
+@media screen and (min-width: 320px) {
+    header, main {
+        padding-left: 0rem;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    header, main {
+        padding-left: 4.5rem;
+    }
 }
