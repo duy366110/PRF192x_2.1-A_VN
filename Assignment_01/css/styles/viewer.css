@@ -1,0 +1,27 @@
+.icons {
+    width: 25px;
+}
+
+.icons.icons-false, .icons.icons-false path {
+    color: #ff0000;
+    stroke: #ff0000;
+}
+
+.icons.icons-true, .icons.icons-true path {
+    color: #008000;
+    stroke: #008000;
+}
+
+@media screen and (min-width: 320px) {
+    .viewer {
+        overflow-x: scroll;
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .viewer {
+        overflow-x: unset;
+        width: 100%;
+    }
+}

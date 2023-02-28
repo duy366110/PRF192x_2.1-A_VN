@@ -6,3 +6,15 @@ footer .silde-bar {
     top: 0px;
     width: 4.4rem;
 }
+
+@media screen and (min-width: 320px) {
+    footer .silde-bar {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    footer .silde-bar {
+        display: block;
+    }
+}

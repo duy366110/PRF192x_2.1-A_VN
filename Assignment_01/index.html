@@ -11,7 +11,7 @@
 <body>
     <header>
         <div class="container-fluid">
-            <nav class="navigation p-y2-x1-5">
+            <nav class="navigation d-flex align-items-center p-y2-x1-5">
                 <h1 class="project-title">Pet managament</h1>
             </nav>
         </div>
@@ -19,29 +19,29 @@
 
     <main>
         <div class="container-fluid">
-            <section class="controller d-flex align-items-center justify-content-center p-y2-x1-5">
-                <div class="controller-pet">
+            <section class="controller d-flex align-items-center justify-content-center">
+                <div class="controller-pet controller-wrapper">
                     <form class="row">
                         <div class="form-group form-group-single col-12">
-                          <label class="pet-title" for="pet-id">Pet ID</label>
+                          <label class="title" for="pet-id">Pet ID</label>
                           <input type="text" class="form-control" id="pet-id" name="pet-id" placeholder="Input ID"/>
                         </div>
 
                         <div class="form-group-double col-12">
                             <div class="row">
-                                <div class="form-group col-8">
-                                    <label class="pet-title" for="pet-id">Pet name</label>
+                                <div class="form-group col-12 col-lg-8">
+                                    <label class="title" for="pet-id">Pet name</label>
                                     <input type="text" class="form-control" id="pet-name" name="pet-name" placeholder="Input name"/>
                                 </div>
-                                <div class="form-group col-4">
-                                    <label class="pet-titles" for="pet-id">Age</label>
+                                <div class="form-group col-12 col-lg-4">
+                                    <label class="pet-titles title" for="pet-id">Age</label>
                                     <input type="text" class="form-control" id="pet-age" name="pet-age" placeholder="Input age"/>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group form-group-single col-12">
-                            <label class="pet-title" for="pet-type">Type</label>
+                            <label class="title" for="pet-type">Type</label>
                             <select class="form-control" id="pet-type" name="pet-type">
                                 <option value="placeholder">Select type</option>
                             </select>
@@ -49,12 +49,12 @@
 
                         <div class="form-group-double col-12">
                             <div class="row">
-                                <div class="form-group col-8">
-                                    <label class="pet-title" for="pet-weight">Weight</label>
+                                <div class="form-group col-12 col-lg-8">
+                                    <label class="title" for="pet-weight">Weight</label>
                                     <input type="text" class="form-control" id="pet-weight" name="pet-weight" placeholder="Input weight"/>
                                 </div>
-                                <div class="form-group col-4">
-                                    <label class="pet-titles" for="pet-length">length</label>
+                                <div class="form-group col-12 col-lg-4">
+                                    <label class="title" for="pet-length">length</label>
                                     <input type="text" class="form-control" id="pet-length" name="pet-length" placeholder="Input length"/>
                                 </div>
                             </div>
@@ -62,17 +62,17 @@
 
                         <div class="form-group-double col-12">
                             <div class="row">
-                                <div class="form-group col-8">
-                                    <label class="pet-title" for="pet-color">Color</label>
+                                <div class="form-group col-12 col-lg-8">
+                                    <label class="title" for="pet-color">Color</label>
                                     <input type="color" class="form-control" id="pet-color" name="pet-color"/>
                                 </div>
-                                <div class="form-group col-4">
-                                    <label class="pet-titles" for="pet-breed">breed</label>
+                                <div class="form-group col-12 col-lg-4">
+                                    <label class="title" for="pet-breed">breed</label>
                                     <select class="form-control" id="pet-breed" name="pet-breed">
                                         <option value="placeholder">Select breed</option>
                                     </select>
                                 </div>
-                                <div class="vaccinated-option d-flex align-items-center justify-content-between col-12">
+                                <div class="vaccinated d-flex align-items-center col-12">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="vaccinated" id="vaccinated" name="vaccinated">
                                         <label class="form-check-label" for="vaccinated">Vaccinated</label>
@@ -91,8 +91,8 @@
                         </div>
 
                         <div class="col-12 mt-5">
-                            <button type="submit" class="btn btn-pet-action btn-primary">Submit</button>
-                            <button type="button" class="btn btn-pet-action btn-warning">Show healthy Pet</button>
+                            <button type="submit" class="btn btn-action btn-primary">Submit</button>
+                            <button type="button" class="btn btn-action btn-warning">Show healthy Pet</button>
                         </div>
                       </form>
                 </div>
@@ -126,10 +126,26 @@
                         <td>5 kg</td>
                         <td>50 cm</td>
                         <td>Tabby</td>
-                        <td>red</td>
-                        <td>true</td>
-                        <td>true</td>
-                        <td>true</td>
+                        <td>
+                            <svg class="icons icons-false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                <path fill-rule="evenodd" d="M4.5 7.5a3 3 0 013-3h9a3 3 0 013 3v9a3 3 0 01-3 3h-9a3 3 0 01-3-3v-9z" clip-rule="evenodd" />
+                            </svg>                                                          
+                        </td>
+                        <td>
+                            <svg class="icons icons-true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
+                            </svg>                              
+                        </td>
+                        <td>
+                            <svg class="icons icons-true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
+                            </svg>                              
+                        </td>
+                        <td>
+                            <svg class="icons icons-true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z" clip-rule="evenodd" />
+                            </svg>                                                          
+                        </td>
                         <td>01/03/2022</td>
                         <td>
                             <button class="btn btn-danger">Delete</button>
