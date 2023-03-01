@@ -1,41 +1,71 @@
-function validation(field, rule) {
-    let state = true;
-    if((rule === 'required') && !field.value) {
-        console.log(rule);
-        console.log('Trường dữ liệu không được rỗng');
-        state = false;
+function validField(field, rules) {
+    if(rules.some((e) => e.state === false)) {
+        for(let i = 0; i < rules.length; i++) {
+            if(rules.some((e) => e.state === false)) {
+                validator(field, rules[i]);
+                if(!rules[i].state) {
+                    break;
+                }
+            }
+        }
     }
-
-    if((rule === 'number')) {
-        console.log(rule);
-        console.log('Dữ liệu phải là số');
-        state = false;
-    }
-    return state;
 }
 
-export function validator (form, fields) {
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
+function validator(field, rule) {
+    switch(rule.error) {
+        case 'number':
+            numbers(field, rule);
+            break
 
-        if(Array.isArray(fields)) {
-            fields.forEach((e) => {
-                if(e.hasOwnProperty('rules') && Array.isArray(e.rules)) {
-                    for(let i = 0; i < e.rules.length; i++) {
-                        if(e.rules.length !== 0) {
-                            if(validation(e.field, e.rules[i])) {
-                                e.rules.shift();
-                                
-                            } else {
-                                console.log("Submit chưa done");
-                                break;
-                            }
-                        } else {
-                            console.log("Submit done");
-                        }
-                    }
-                }
-            })
-        }
+        case 'required':
+        default:
+            required(field, rule);
+            break;
+    }
+}
+
+function required(field, rule) {
+    let message = $(`#${field.id}-message`)[0];
+
+    if(field.value.trim()) {
+        field.classList.remove("is-invalid");
+        message.classList.remove('is-invalid');
+        message.textContent = '';
+        rule.message = '';
+        rule.state = true;
+
+    } else {
+        field.classList.add("is-invalid");
+        message.classList.add('is-invalid');
+        message.textContent = 'Nội dung không được rỗng';
+        rule.message = 'Nội dung không được rỗng';
+        rule.state = false;
+    }
+}
+
+function numbers(field, rule) {
+    let message = $(`#${field.id}-message`)[0];
+
+    if(Number(field.value)) {
+        field.classList.remove("is-invalid");
+        message.classList.remove('is-invalid');
+        message.textContent = '';
+        rule.message = '';
+        rule.state = true;
+
+    } else {
+        field.classList.add("is-invalid");
+        message.classList.add('is-invalid');
+        message.textContent = 'Nội dung phải là sô';
+        rule.message = 'Nội dung phải là số';
+        rule.state = false;
+    }
+}
+
+export function validation (form, fields) {
+    fields.forEach(itemField => {
+        itemField.field.addEventListener('blur', (event) => {
+            validField(event.target, itemField.rules);
+        })
     })
 }

@@ -1,14 +1,28 @@
+"use strict";
 import { petInfo } from './script/query.js';
-import {validator} from './script/validation.js';
+import {validation} from './script/validation.js';
 
 window.onload = function(e) {
     (() => {
-        validator(petInfo.infor, [
+        validation(petInfo.infor, [
             {
                 field: petInfo.id,
                 rules: [
-                    'required',
-                    'number'
+                    {
+                        error: 'required',
+                        message: '',
+                        state: false,
+                    }
+                ]
+            },
+            {
+                field: petInfo.name,
+                rules: [
+                    {
+                        error: 'required',
+                        message: '',
+                        state: false,
+                    }
                 ]
             }
         ]);
