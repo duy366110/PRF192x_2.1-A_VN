@@ -1,8 +1,3 @@
-.form-group-single .title {
-    display: inline-block;
-    width: 15.5rem;
-}
-
 .form-check-label {
     margin-left: .5rem;
     vertical-align: super;
@@ -30,10 +25,10 @@
 
     /* FORM GROUP */
     .form-group {
-        display: flex;
         margin-bottom: 2.5rem;
     }
 }
+
 @media screen and (min-width: 992px) {
     .controller {
         padding: 2rem 1.5rem;
@@ -44,7 +39,14 @@
     }
 
     /* FORM GROUP */
-    .form-group-double .form-group .title {
-        width: 18rem;
+    .form-group {
+        display: flex;
+        margin-bottom: 2.5rem;
+    }
+
+    .vaccinated::before {
+        content: '';
+        display: inline-block;
+        width: 8.3rem;
     }
 }
