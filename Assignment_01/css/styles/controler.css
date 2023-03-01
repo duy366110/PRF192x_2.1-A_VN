@@ -8,6 +8,15 @@
     height: 3.5rem;
 }
 
+.controller-wrapper .form-text {
+    display: none;
+}
+
+.controller-wrapper .form-text.is-invalid {
+    color: rgb(254, 25, 25)!important;
+    display: block;
+}
+
 .vaccinated .form-check {
     margin-right: 2rem;
 }
