@@ -6,13 +6,15 @@ import { messageErrors } from "./data.js";
  * @param {*} type 
  * @param {*} rules 
  */
-function validField(field, type, rules) {
-    for(let i = 0; i < rules.length; i++) {
-        let state = validator(field, type, rules[i]);
+function validField(input) {
+    let state;
+    for(let i = 0; i < input.rules.length; i++) {
+        state = validator(input, input.rules[i]);
         if(!state) {
             break;
         }
     }
+    return state;
 }
 
 /**
@@ -22,20 +24,20 @@ function validField(field, type, rules) {
  * @param {*} rule 
  * @returns 
  */
-function validator(field, type, rule) {
+function validator(input, rule) {
     let state = true;
     switch(rule.error) {
         case 'number':
-            state = numbers(field, type, rule);
+            state = numbers(input);
             break
 
         case 'range':
-            state = range(field, type, rule);
+            state = range(input);
             break
 
         case 'required':
         default:
-            state = required(field, type, rule);
+            state = required(input);
             break;
     }
 
@@ -61,9 +63,6 @@ function setMessage(field, message, messageContent, state) {
     }
 }
 
-
-// Option validator
-
 /**
  * 
  * @param {*} field 
@@ -71,15 +70,15 @@ function setMessage(field, message, messageContent, state) {
  * @param {*} rule 
  * @returns true or false
  */
-function required(field, type, rule) {
-    let message = $(`#${field.id}-message`)[0];
+function required(input) {
+    let message = $(`#${input.field.id}-message`)[0];
 
-    if(field.value.trim()) {
-        setMessage(field, message, '', true);
+    if(input.field.value.trim()) {
+        setMessage(input.field, message, '', true);
         return true;
 
     } else {
-        setMessage(field, message, messageErrors.required, false);
+        setMessage(input.field, message, messageErrors.required, false);
         return false;
     }
 }
@@ -91,16 +90,16 @@ function required(field, type, rule) {
  * @param {*} rule 
  * @returns 
  */
-function numbers(field, type, rule) {
-    let message = $(`#${field.id}-message`)[0];
-    let inputValue = Number(field.value);
+function numbers(input) {
+    let message = $(`#${input.field.id}-message`)[0];
+    let inputValue = Number(input.field.value);
 
     if(typeof inputValue) {
-        setMessage(field, message, '', true);
+        setMessage(input.field, message, '', true);
         return true;
 
     } else {
-        setMessage(field, message, messageErrors.number, false);
+        setMessage(input.field, message, messageErrors.number, false);
         return false;
     }
 }
@@ -111,18 +110,18 @@ function numbers(field, type, rule) {
  * @param {*} type 
  * @param {*} rule 
  */
-function range(field, type, rule) {
-    let message = $(`#${field.id}-message`)[0];
-    let inputValue = Number(field.value);
-    let min = Number(field.attributes['attr-min'].value);
-    let max = Number(field.attributes['attr-max'].value);
+function range(input) {
+    let message = $(`#${input.field.id}-message`)[0];
+    let inputValue = Number(input.field.value);
+    let min = Number(input.field.attributes['attr-min'].value);
+    let max = Number(input.field.attributes['attr-max'].value);
 
     if((inputValue >= min) && (inputValue <= max)) {
-        setMessage(field, message, '', true);
+        setMessage(input.field, message, '', true);
         return true;
 
     } else {
-        setMessage(field, message, messageErrors.age, false);
+        setMessage(input.field, message, messageErrors.age, false);
         return false;
     }
 }
@@ -132,18 +131,21 @@ function range(field, type, rule) {
  * @param {*} form 
  * @param {*} fields 
  */
-export function validation (form, fields) {
-
+export function validation (form, fields, callback) {
+    let valid = false;
     fields.forEach(itemField => {
         itemField.field.addEventListener('blur', (event) => {
-            validField(itemField.field, itemField.type, itemField.rules);
+            validField(itemField);
         })
     })
 
     form.addEventListener('submit', (event) => {
         event.preventDefault();
         fields.forEach(itemField => {
-            validField(itemField.field, itemField.type, itemField.rules);
+            valid = validField(itemField);
         })
+        if(valid) {
+            callback(state);
+        }
     })
 }
