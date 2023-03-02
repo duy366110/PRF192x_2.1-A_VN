@@ -1,8 +1,10 @@
 "use strict";
 import { petInfo } from './script/query.js';
 import {validation} from './script/validation.js';
+import {PET, PETS} from './script/data.js';
 
 window.onload = function(e) {
+    
     (() => {
         validation(petInfo.infor, [
             {
@@ -106,6 +108,14 @@ window.onload = function(e) {
                     }
                 ]
             }
-        ]);
+        ], save);
     })()
+
+
+    function save(valid) {
+        if(valid) {
+            console.log(state);
+            console.log("Tiến hành lưu data");
+        }
+    }
 }
