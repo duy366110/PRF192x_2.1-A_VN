@@ -1,71 +1,149 @@
-function validField(field, rules) {
-    if(rules.some((e) => e.state === false)) {
-        for(let i = 0; i < rules.length; i++) {
-            if(rules.some((e) => e.state === false)) {
-                validator(field, rules[i]);
-                if(!rules[i].state) {
-                    break;
-                }
-            }
+import { messageErrors } from "./data.js";
+
+/**
+ * 
+ * @param {*} field 
+ * @param {*} type 
+ * @param {*} rules 
+ */
+function validField(field, type, rules) {
+    for(let i = 0; i < rules.length; i++) {
+        let state = validator(field, type, rules[i]);
+        if(!state) {
+            break;
         }
     }
 }
 
-function validator(field, rule) {
+/**
+ * 
+ * @param {*} field 
+ * @param {*} type 
+ * @param {*} rule 
+ * @returns 
+ */
+function validator(field, type, rule) {
+    let state = true;
     switch(rule.error) {
         case 'number':
-            numbers(field, rule);
+            state = numbers(field, type, rule);
+            break
+
+        case 'range':
+            state = range(field, type, rule);
             break
 
         case 'required':
         default:
-            required(field, rule);
+            state = required(field, type, rule);
             break;
+    }
+
+    return state;
+}
+
+/**
+ * 
+ * @param {*} field 
+ * @param {*} message 
+ * @param {*} messageContent 
+ * @param {*} state 
+ */
+function setMessage(field, message, messageContent, state) {
+    message.textContent = messageContent;
+    if(state) {
+        field.classList.remove('is-invalid');
+        message.classList.remove('is-invalid');
+
+    } else {
+        field.classList.add('is-invalid');
+        message.classList.add('is-invalid');
     }
 }
 
-function required(field, rule) {
+
+// Option validator
+
+/**
+ * 
+ * @param {*} field 
+ * @param {*} type 
+ * @param {*} rule 
+ * @returns true or false
+ */
+function required(field, type, rule) {
     let message = $(`#${field.id}-message`)[0];
 
     if(field.value.trim()) {
-        field.classList.remove("is-invalid");
-        message.classList.remove('is-invalid');
-        message.textContent = '';
-        rule.message = '';
-        rule.state = true;
+        setMessage(field, message, '', true);
+        return true;
 
     } else {
-        field.classList.add("is-invalid");
-        message.classList.add('is-invalid');
-        message.textContent = 'Nội dung không được rỗng';
-        rule.message = 'Nội dung không được rỗng';
-        rule.state = false;
+        setMessage(field, message, messageErrors.required, false);
+        return false;
     }
 }
 
-function numbers(field, rule) {
+/**
+ * 
+ * @param {*} field 
+ * @param {*} type 
+ * @param {*} rule 
+ * @returns 
+ */
+function numbers(field, type, rule) {
     let message = $(`#${field.id}-message`)[0];
+    let inputValue = Number(field.value);
 
-    if(Number(field.value)) {
-        field.classList.remove("is-invalid");
-        message.classList.remove('is-invalid');
-        message.textContent = '';
-        rule.message = '';
-        rule.state = true;
+    if(typeof inputValue) {
+        setMessage(field, message, '', true);
+        return true;
 
     } else {
-        field.classList.add("is-invalid");
-        message.classList.add('is-invalid');
-        message.textContent = 'Nội dung phải là sô';
-        rule.message = 'Nội dung phải là số';
-        rule.state = false;
+        setMessage(field, message, messageErrors.number, false);
+        return false;
     }
 }
 
+/**
+ * 
+ * @param {*} field 
+ * @param {*} type 
+ * @param {*} rule 
+ */
+function range(field, type, rule) {
+    let message = $(`#${field.id}-message`)[0];
+    let inputValue = Number(field.value);
+    let min = Number(field.attributes['attr-min'].value);
+    let max = Number(field.attributes['attr-max'].value);
+
+    if((inputValue >= min) && (inputValue <= max)) {
+        setMessage(field, message, '', true);
+        return true;
+
+    } else {
+        setMessage(field, message, messageErrors.age, false);
+        return false;
+    }
+}
+
+/**
+ * 
+ * @param {*} form 
+ * @param {*} fields 
+ */
 export function validation (form, fields) {
+
     fields.forEach(itemField => {
         itemField.field.addEventListener('blur', (event) => {
-            validField(event.target, itemField.rules);
+            validField(itemField.field, itemField.type, itemField.rules);
+        })
+    })
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        fields.forEach(itemField => {
+            validField(itemField.field, itemField.type, itemField.rules);
         })
     })
 }

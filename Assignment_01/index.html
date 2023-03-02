@@ -26,7 +26,7 @@
                           <label class="title w-10" for="pet-id">Pet ID</label>
                           <div class="w-100">
                             <input type="text" class="form-control" id="pet-id" name="pet-id" placeholder="Input ID"/>
-                            <small id="pet-id-message" class="form-text text-muted">Nội dung văn bản</small>
+                            <small id="pet-id-message" class="form-text text-muted"></small>
                           </div>
                         </div>
 
@@ -34,42 +34,64 @@
                             <label class="title w-12" for="pet-id">Pet name</label>
                             <div class="w-100">
                                 <input type="text" class="form-control" id="pet-name" name="pet-name" placeholder="Input name"/>
-                                <small id="pet-name-message" class="form-text text-muted">Nội dung văn bản</small>
+                                <small id="pet-name-message" class="form-text text-muted"></small>
                             </div>
                         </div>
 
                         <div class="form-group form-group-single col-12 col-md-5">
                             <label class="title w-12" for="pet-id">Age</label>
-                            <input type="text" class="form-control double-form-control" id="pet-age" name="pet-age" placeholder="Input age"/>
+                            <div class="w-100">
+                                <input type="text" class="form-control double-form-control" id="pet-age" name="pet-age" attr-min="1" attr-max="15" placeholder="Input age"/>
+                                <small id="pet-age-message" class="form-text text-muted"></small>
+                            </div>
                         </div>
 
 
                         <div class="form-group form-group-single col-12">
                             <label class="title w-10" for="pet-type">Type</label>
-                            <select class="form-control" id="pet-type" name="pet-type">
-                                <option value="placeholder">Select type</option>
-                            </select>
+                            <div class="w-100">
+                                <select class="form-control" id="pet-type" name="pet-type">
+                                    <option value="">Select type</option>
+                                    <option value="1">Option 01</option>
+                                    <option value="2">Option 02</option>
+                                </select>
+                                <small id="pet-type-message" class="form-text text-muted"></small>
+                            </div>
                         </div>
 
                         <div class="form-group col-12 col-md-7">
                             <label class="title w-12" for="pet-weight">Weight</label>
-                            <input type="text" class="form-control" id="pet-weight" name="pet-weight" placeholder="Input weight"/>
+                            <div class="w-100">
+                                <input type="text" class="form-control" id="pet-weight" name="pet-weight" attr-min="1" attr-max="15" placeholder="Input weight"/>
+                                <small id="pet-weight-message" class="form-text text-muted"></small>
+                            </div>
                         </div>
 
                         <div class="form-group col-12 col-md-5">
                             <label class="title w-12" for="pet-length">length</label>
-                            <input type="text" class="form-control double-form-control" id="pet-length" name="pet-length" placeholder="Input length"/>
+                            <div class="w-100">
+                                <input type="text" class="form-control double-form-control" id="pet-length" name="pet-length" attr-min="1" attr-max="15" placeholder="Input length"/>
+                                <small id="pet-length-message" class="form-text text-muted"></small>
+                            </div>
                         </div>
 
                         <div class="form-group col-12 col-md-7">
                             <label class="title w-12" for="pet-color">Color</label>
-                            <input type="color" class="form-control" id="pet-color" name="pet-color"/>
+                            <div class="w-100">
+                                <input type="color" class="form-control" id="pet-color" name="pet-color"/>
+                                <small id="pet-color-message" class="form-text text-muted"></small>
+                            </div>
                         </div>
                         <div class="form-group col-12 col-md-5">
                             <label class="title w-12" for="pet-breed">breed</label>
-                            <select class="form-control double-form-control" id="pet-breed" name="pet-breed">
-                                <option value="placeholder">Select breed</option>
-                            </select>
+                            <div class="w-100">
+                                <select class="form-control double-form-control" id="pet-breed" name="pet-breed">
+                                    <option value="">Select breed</option>
+                                    <option value="1">Option 01</option>
+                                    <option value="2">Option 02</option>
+                                </select>
+                                <small id="pet-breed-message" class="form-text text-muted"></small>
+                            </div>
                         </div>
 
                         <div class="vaccinated d-flex align-items-center col-12">

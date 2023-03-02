@@ -17,6 +17,10 @@
     display: block;
 }
 
+.form-control.is-invalid, .was-validated .form-control:invalid {
+    background-position: right calc(1em + 0.1875rem) center;
+}
+
 .vaccinated .form-check {
     margin-right: 2rem;
 }
