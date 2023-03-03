@@ -1,3 +1,4 @@
+"use strict";
 let $ = document.querySelector.bind(document);
 
 // ACCESS DOM
