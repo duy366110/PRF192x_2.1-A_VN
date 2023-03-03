@@ -5,6 +5,7 @@ let $$ = document.querySelectorAll.bind(document);
 
 let scorePlayerOne = $('#score--0');
 let scorePlayerTwo = $('#score--1');
+let scoreTarget = 100;
 let currentPlayerOne = $('#current--0');
 let currentPlayerTwo = $('#current--1');
 let diceImg = $('#dice-img');
@@ -16,95 +17,107 @@ function randomDice(min, max) {
     return Math.trunc((Math.random() * (max - min)) + 1);
 }
 
-function toggleDiceImg(status, diceValue) {
-    if(status) {
-        if(diceImg.classList.contains('hidden')) {
-            diceImg.classList.remove('hidden');
-        }
-        diceImg.src = `./assets/img/dice-${diceValue}.png`;
-
-    } else {
-        diceImg.classList.add('hidden');
-        diceImg.src = `./assets/img/dice-1.png`;
-    }
-}
-
 function changePlayer(diceValue) {
-    if(diceValue === 1) {
-        if(player[0].classList.contains('player--active')) {
-            player[0].classList.remove('player--active');
-            player[1].classList.add('player--active');
-            return;
-        }
-
-        if(player[1].classList.contains('player--active')) {
-            player[1].classList.remove('player--active');
-            player[0].classList.add('player--active');
+    if(!playerWinner().status) {
+        if(diceValue === 1) {
+            if(player[0].classList.contains('player--active')) {
+                player[0].classList.remove('player--active');
+                player[1].classList.add('player--active');
+                return;
+            }
+    
+            if(player[1].classList.contains('player--active')) {
+                player[1].classList.remove('player--active');
+                player[0].classList.add('player--active');
+            }
         }
     }
 }
 
 function calcPlayer(diceValue) {
-    if(diceValue === 1) {
-        currentPlayerOne.textContent = 0;
-        currentPlayerTwo.textContent = 0;
-    }
+    if(!playerWinner().status) {
+        if(diceValue === 1) {
+            currentPlayerOne.textContent = 0;
+            currentPlayerTwo.textContent = 0;
+        }
 
-    if((diceValue !== 1) && player[0].classList.contains('player--active')) {
-        let valueCurrentPlayerOne = Number(currentPlayerOne.textContent);
-        valueCurrentPlayerOne += diceValue;
-        currentPlayerOne.textContent = valueCurrentPlayerOne;
-    }
+        if((diceValue !== 1) && player[0].classList.contains('player--active')) {
+            let valueCurrentPlayerOne = Number(currentPlayerOne.textContent);
+            valueCurrentPlayerOne += diceValue;
+            currentPlayerOne.textContent = valueCurrentPlayerOne;
+        }
 
-    if((diceValue !== 1) && player[1].classList.contains('player--active')) {
-        let valueCurrentPlayerTwo = Number(currentPlayerTwo.textContent);
-        valueCurrentPlayerTwo += diceValue;
-        currentPlayerTwo.textContent = valueCurrentPlayerTwo;
+        if((diceValue !== 1) && player[1].classList.contains('player--active')) {
+            let valueCurrentPlayerTwo = Number(currentPlayerTwo.textContent);
+            valueCurrentPlayerTwo += diceValue;
+            currentPlayerTwo.textContent = valueCurrentPlayerTwo;
+        }
+
     }
 }
 
 function calcHold() {
-    if((Number(scorePlayerOne.textContent) >= 100) || (Number(scorePlayerTwo.textContent) >= 100)) {
-        playerWinner(Number(scorePlayerOne.textContent), Number(scorePlayerTwo.textContent), 100);
-
-    } else {
         if(player[0].classList.contains('player--active')) {
             scorePlayerOne.textContent = Number(scorePlayerOne.textContent) + Number(currentPlayerOne.textContent);
             currentPlayerOne.textContent = 0;
+            if(playerWinner().status) {
+                playerWinner().player.classList.add('player--winner');
+            }
         }
     
         if(player[1].classList.contains('player--active')) {
             scorePlayerTwo.textContent = Number(scorePlayerTwo.textContent) + Number(currentPlayerTwo.textContent);
             currentPlayerTwo.textContent = 0;
+            if(playerWinner().status) {
+                playerWinner().player.classList.add('player--winner');
+            }
         }
-    }
 }
 
-function checkPlayerWinner(scoreTarget) {
+function playerWinner() {
+    let winner = {
+        status: false,
+        player: null,
+        playerName: ''
+    };
+
     if((Number(scorePlayerOne.textContent) >= scoreTarget) || (Number(scorePlayerTwo.textContent) >= scoreTarget)) {
-        playerWinner(Number(scorePlayerOne.textContent), Number(scorePlayerTwo.textContent), scoreTarget);
+        winner.status = true;
+        if(player[0].classList.contains('player--active')) {
+            winner.player = player[0];
+            winner.playerName = 'player - 01';
+        }
 
-    } else {
-        let randomRollDice = randomDice(1, 7);
-        toggleDiceImg(true, randomRollDice);
-
-        changePlayer(randomRollDice);
-        calcPlayer(randomRollDice);
+        if(player[1].classList.contains('player--active')) {
+            winner.player = player[1];
+            winner.playerName = 'player - 02';
+        }
+        return winner;
     }
+
+    return winner;
 }
 
-function playerWinner(playerOne, playerTwo, scoreTarget) {
-    if(playerOne >= scoreTarget &&  player[0].classList.contains('player--active')) {
-        player[0].classList.add('player--winner');
-    }
-
-    if(playerTwo >= scoreTarget &&  player[1].classList.contains('player--active')) {
-        player[1].classList.add('player--winner');
+function toggleDiceImg(rollStatus, diceValue) {
+    if(!playerWinner().status) {
+        if(rollStatus) {
+            if(diceImg.classList.contains('hidden')) {
+                diceImg.classList.remove('hidden');
+            }
+            diceImg.src = `./assets/img/dice-${diceValue}.png`;
+    
+        } else {
+            diceImg.classList.add('hidden');
+            diceImg.src = `./assets/img/dice-1.png`;
+        }
     }
 }
 
 hold.addEventListener('click', calcHold)
 
 roll.addEventListener('click', function(e) {
-    checkPlayerWinner(100);
+    let randomRollDice = randomDice(1, 7);
+    toggleDiceImg(true, randomRollDice);
+    changePlayer(randomRollDice);
+    calcPlayer(randomRollDice);
 })
