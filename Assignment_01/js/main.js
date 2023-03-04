@@ -1,7 +1,7 @@
 "use strict";
 import { petInfo } from './script/query.js';
 import {validation} from './script/validation.js';
-import {save} from './script/executed.js';
+import {deletePet, savePet} from './script/executed.js';
 import {renderPetTemplate} from './script/render.js';
 
 window.onload = function(e) {
@@ -88,7 +88,7 @@ window.onload = function(e) {
                     {error: 'required'},{error: 'number'},{error: 'range'}
                 ]
             }
-        ], save);
-        renderPetView()
+        ], savePet);
+        renderPetView(deletePet);
     })(renderPetTemplate)
 }

@@ -31,7 +31,7 @@
                         </div>
 
                         <div class="form-group form-group-single col-12 col-md-7">
-                            <label class="title w-12" for="pet-id">Pet name</label>
+                            <label class="title w-11" for="pet-id">Pet name</label>
                             <div class="w-100">
                                 <input type="text" class="form-control" id="pet-name" name="pet-name" placeholder="Input name"/>
                                 <small id="pet-name-message" class="form-text text-muted"></small>
@@ -39,7 +39,7 @@
                         </div>
 
                         <div class="form-group form-group-single col-12 col-md-5">
-                            <label class="title w-12" for="pet-id">Age</label>
+                            <label class="title w-11" for="pet-id">Age</label>
                             <div class="w-100">
                                 <input type="text" class="form-control double-form-control" id="pet-age" name="pet-age" attr-min="1" attr-max="15" placeholder="Input age"/>
                                 <small id="pet-age-message" class="form-text text-muted"></small>
@@ -60,7 +60,7 @@
                         </div>
 
                         <div class="form-group col-12 col-md-7">
-                            <label class="title w-12" for="pet-weight">Weight</label>
+                            <label class="title w-11" for="pet-weight">Weight</label>
                             <div class="w-100">
                                 <input type="text" class="form-control" id="pet-weight" name="pet-weight" attr-min="1" attr-max="15" placeholder="Input weight"/>
                                 <small id="pet-weight-message" class="form-text text-muted"></small>
@@ -68,7 +68,7 @@
                         </div>
 
                         <div class="form-group col-12 col-md-5">
-                            <label class="title w-12" for="pet-length">length</label>
+                            <label class="title w-11" for="pet-length">length</label>
                             <div class="w-100">
                                 <input type="text" class="form-control double-form-control" id="pet-length" name="pet-length" attr-min="1" attr-max="15" placeholder="Input length"/>
                                 <small id="pet-length-message" class="form-text text-muted"></small>
@@ -76,7 +76,7 @@
                         </div>
 
                         <div class="form-group col-12 col-md-7">
-                            <label class="title w-12" for="pet-color">Color</label>
+                            <label class="title w-11" for="pet-color">Color</label>
                             <div class="w-100">
                                 <input type="color" class="form-control" id="pet-color" name="pet-color"/>
                                 <small id="pet-color-message" class="form-text text-muted"></small>
@@ -84,7 +84,7 @@
                         </div>
 
                         <div class="form-group col-12 col-md-5">
-                            <label class="title w-12" for="pet-breed">breed</label>
+                            <label class="title w-11" for="pet-breed">breed</label>
                             <div class="w-100">
                                 <select class="form-control double-form-control" id="pet-breed" name="pet-breed">
                                     <option value="">Select breed</option>
@@ -141,41 +141,7 @@
                         <th scope="col">Action</th>
                       </tr>
                     </thead>
-                    <tbody id="tbody">
-                      <!-- <tr>
-                        <td>P001</td>
-                        <td>Tom</td>
-                        <td>3</td>
-                        <td>Cat</td>
-                        <td>5 kg</td>
-                        <td>50 cm</td>
-                        <td>Tabby</td>
-                        <td>
-                            <svg class="icons icons-false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                                <path fill-rule="evenodd" d="M4.5 7.5a3 3 0 013-3h9a3 3 0 013 3v9a3 3 0 01-3 3h-9a3 3 0 01-3-3v-9z" clip-rule="evenodd" />
-                            </svg>                                                          
-                        </td>
-                        <td>
-                            <svg class="icons icons-true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                                <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
-                            </svg>                              
-                        </td>
-                        <td>
-                            <svg class="icons icons-true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                                <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
-                            </svg>                              
-                        </td>
-                        <td>
-                            <svg class="icons icons-true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                                <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z" clip-rule="evenodd" />
-                            </svg>                                                          
-                        </td>
-                        <td>01/03/2022</td>
-                        <td>
-                            <button class="btn btn-danger">Delete</button>
-                        </td>
-                      </tr> -->
-                    </tbody>
+                    <tbody id="tbody"></tbody>
                   </table>
             </section>
         </div>

@@ -60,6 +60,10 @@ a:hover, a:active, a:visited, a:focus {
     width: 10rem;
 }
 
+.w-11 {
+    width: 11rem;
+}
+
 .w-12 {
     width: 12rem;
 }
