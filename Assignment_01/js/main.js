@@ -2,10 +2,11 @@
 import { petInfo } from './script/query.js';
 import {validation} from './script/validation.js';
 import {save} from './script/executed.js';
+import {renderPetTemplate} from './script/render.js';
 
 window.onload = function(e) {
     
-    (() => {
+    ((renderPetView) => {
         validation(petInfo.infor, [
             {
                 field: petInfo.age,
@@ -88,5 +89,6 @@ window.onload = function(e) {
                 ]
             }
         ], save);
-    })()
+        renderPetView()
+    })(renderPetTemplate)
 }

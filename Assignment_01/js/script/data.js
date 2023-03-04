@@ -9,7 +9,7 @@ export const messageErrors = {
     weight: 'Weight must be between 1 and 15!',
 }
 
-export const PETS = [];
+export let PETS = [];
 export function PET(age, breed, color, dewormed, length, id, name, sterilized, type, weight, vaccinated) {
     this.age = age;
     this.breed = breed;
