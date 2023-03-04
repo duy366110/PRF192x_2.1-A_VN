@@ -1,3 +1,9 @@
+/**
+ * 
+ * @param {*} color color fill icon.
+ * @param {*} status status vaccinated.
+ * @returns svg icon set to view.
+ */
 function renderIcon(color, status) {
     let icon = '';
     if(color) {
@@ -27,10 +33,16 @@ function renderIcon(color, status) {
     return icon;
 }
 
+
+/**
+ * 
+ * Function render view when add new pet.
+ * @param {*} deletePet Callback function devele pet
+ */
 export function renderPetTemplate(deletePet) {
     let viewer = $('#tbody');
     let pets = [];
-    let status = localStorage.getItem('PETS')? true : false;
+    let status = (localStorage.getItem('PETS') && JSON.parse(localStorage.getItem('PETS')).length)? true : false;
     let template = ``;
 
     if(status) {
@@ -49,7 +61,7 @@ export function renderPetTemplate(deletePet) {
                     <td>${renderIcon('', pet.vaccinated)}</td>
                     <td>${renderIcon('', pet.dewormed)}</td>
                     <td>${renderIcon('', pet.sterilized)}</td>
-                    <td>04/03/2023</td>
+                    <td>${pet.createDate}</td>
                     <td><button type="button" class='btn btn-danger btn-pet-delete' id='${pet.id}'>delete</button></td>
                 </tr>
             `;

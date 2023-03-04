@@ -4,8 +4,13 @@ import {validation} from './script/validation.js';
 import {deletePet, savePet} from './script/executed.js';
 import {renderPetTemplate} from './script/render.js';
 
+/**
+ * Start run main.
+ * 1) Set up validation form information pet.
+ * 2) After if validation pass call function save pet.
+ * 3) After save pet successfull call function renderPetView
+ */
 window.onload = function(e) {
-    
     ((renderPetView) => {
         validation(petInfo.infor, [
             {

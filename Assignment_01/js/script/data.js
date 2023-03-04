@@ -10,10 +10,11 @@ export const messageErrors = {
 }
 
 export let PETS = [];
-export function PET(age, breed, color, dewormed, length, id, name, sterilized, type, weight, vaccinated) {
+export function PET(age, breed, color, createDate, dewormed, length, id, name, sterilized, type, weight, vaccinated) {
     this.age = age;
     this.breed = breed;
     this.color = color;
+    this.createDate = createDate,
     this.dewormed = dewormed;
     this.id = id;
     this.length = length;
