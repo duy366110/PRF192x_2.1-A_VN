@@ -163,7 +163,7 @@ function unique(input) {
  * @param {*} form 
  * @param {*} fields 
  */
-export function validation (form, fields, callback) {
+export function validation (form, fields, savePet) {
     let valid = false;
     fields.forEach(itemField => {
         if(itemField.rules.length) {
@@ -181,7 +181,7 @@ export function validation (form, fields, callback) {
             }
         })
         if(valid) {
-            callback(form, fields);
+            savePet(form, fields);
         }
     })
 }

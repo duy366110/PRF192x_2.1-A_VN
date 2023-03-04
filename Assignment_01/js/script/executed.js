@@ -1,4 +1,5 @@
 import {PET, PETS} from './data.js';
+import {renderPetTemplate} from './render.js';
 
 export function save(form, fields) {
     let pet = new PET(null, null, null, null,null, null,null,null,null,null,null);
@@ -27,7 +28,7 @@ export function save(form, fields) {
     })
 
     if(localStorage.getItem('PETS')) {
-        PETS = JSON.parse(localStorage.getItem('PETS'));
+        Object.assign(PETS, JSON.parse(localStorage.getItem('PETS')));
         PETS.push(pet);
 
     } else {
@@ -36,4 +37,5 @@ export function save(form, fields) {
 
     localStorage.setItem('PETS', JSON.stringify(PETS));
     form.reset();
+    renderPetTemplate();
 }
