@@ -1,80 +1,81 @@
 import { messageErrors } from "./data.js";
 
+
 /**
  * 
- * @param {*} field 
- * @param {*} type 
- * @param {*} rules 
+ * @param {*} input single filed in form pet validation
+ * @returns status checked validation field successfull or failed
  */
 function validField(input) {
-    let state = true;
+    let status = true;
     if(input.rules.length > 0) {
         for(let i = 0; i < input.rules.length; i++) {
-            state = validator(input, input.rules[i]);
-            if(!state) {
+            status = validator(input, input.rules[i]);
+            if(!status) {
                 break;
             }
         }
     }
-    return state;
+    return status;
 }
+
 
 /**
  * 
- * @param {*} field 
- * @param {*} type 
- * @param {*} rule 
- * @returns 
+ * @param {*} input field input from form pet information.
+ * @param {*} rule condition validation field.
+ * @returns status validation rule successfull or failed.
  */
 function validator(input, rule) {
-    let state = true;
+    let status = true;
     switch(rule.error) {
         case 'number':
-            state = numbers(input);
+            status = numbers(input);
             break
 
         case 'range':
-            state = range(input);
+            status = range(input);
             break
 
         case 'unique':
-            state = unique(input);
+            status = unique(input);
             break
 
         case 'required':
         default:
-            state = required(input);
+            status = required(input);
             break;
     }
 
-    return state;
+    return status;
 }
+
 
 /**
  * 
- * @param {*} field 
- * @param {*} message 
- * @param {*} messageContent 
- * @param {*} state 
+ * @param {*} input field input from form pet information.
+ * @param {*} message field small show message after field input.
+ * @param {*} messageContent content for field message.
+ * @param {*} status (true/false) add message or delete message.
  */
-function setMessage(field, message, messageContent, state) {
+function setMessage(input, message, messageContent, status) {
     message.textContent = messageContent;
-    if(state) {
-        field.classList.remove('is-invalid');
+    if(status) {
+        input.classList.remove('is-invalid');
         message.classList.remove('is-invalid');
 
     } else {
-        field.classList.add('is-invalid');
+        input.classList.add('is-invalid');
         message.classList.add('is-invalid');
     }
 }
 
+
 /**
  * 
- * @param {*} field 
- * @param {*} type 
- * @param {*} rule 
- * @returns true or false
+ * validation field need value.
+ * @param {*} input field input from form pet information.
+ * @returns status validation field.
  */
 function required(input) {
     let message = $(`#${input.field.id}-message`)[0];
@@ -103,10 +104,9 @@ function required(input) {
 
 /**
  * 
- * @param {*} field 
- * @param {*} type 
- * @param {*} rule 
- * @returns 
+ * Validation field value number.
+ * @param {*} input field input from form pet information.
+ * @returns status validation field.
  */
 function numbers(input) {
     let message = $(`#${input.field.id}-message`)[0];
@@ -122,11 +122,12 @@ function numbers(input) {
     }
 }
 
+
 /**
  * 
- * @param {*} field 
- * @param {*} type 
- * @param {*} rule 
+ * Validation field value range min - max.
+ * @param {*} input field input from form pet information.
+ * @returns status validation field.
  */
 function range(input) {
     let message = $(`#${input.field.id}-message`)[0];
@@ -144,6 +145,13 @@ function range(input) {
     }
 }
 
+
+/**
+ * 
+ * Validation field value unique.
+ * @param {*} input field input from form pet information.
+ * @returns status validation field.
+ */
 function unique(input) {
     let message = $(`#${input.field.id}-message`)[0];
     if(localStorage.getItem('PETS')) {
@@ -164,10 +172,12 @@ function unique(input) {
     }
 }
 
+
 /**
  * 
- * @param {*} form 
- * @param {*} fields 
+ * @param {*} form this's form information pet from HTML
+ * @param {*} fields  this's list object filed input from main.js
+ * @param {*} savePet This's callback function input from main.js
  */
 export function validation (form, fields, savePet) {
     let valid = false;

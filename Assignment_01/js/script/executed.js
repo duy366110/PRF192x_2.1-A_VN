@@ -3,6 +3,11 @@ import {renderPetTemplate} from './render.js';
 
 let $$ = document.querySelectorAll.bind(document);
 
+/**
+ * 
+ * Delete element pet in list pets.
+ * @param {*} pets recive pet list checked delete element by id.
+ */
 export function deletePet(pets) {
     let btnDeletes = $$('.btn-pet-delete');
     let id = 0;
@@ -21,8 +26,30 @@ export function deletePet(pets) {
     }
 }
 
+
+/**
+ * Function get curent date.
+ * @returns Current date.
+ */
+function getDate() {
+    let date = new Date();
+    date = date.toLocaleDateString().split('/');
+    date = date.reduce((acc, el) => {
+        ;
+        return acc.concat((el.length > 1)? el : `0${el}`);
+
+    }, []).join('/')
+
+    return date;
+}
+
+/**
+ * 
+ * @param {*} form this's form information pet from HTML recive validation.js
+ * @param {*} fields  this's list object filed input from HTML recive validation.js
+ */
 export function savePet(form, fields) {
-    let pet = new PET(null, null, null, null,null, null,null,null,null,null,null);
+    let pet = new PET(null, null, null, getDate(), null,null, null,null,null,null,null,null);
     
     let mapFields = fields.map((e) => {
         let value;
