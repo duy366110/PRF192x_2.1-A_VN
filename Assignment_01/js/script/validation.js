@@ -145,12 +145,18 @@ function range(input) {
 }
 
 function unique(input) {
-    let pets = JSON.parse(localStorage.getItem('PETS'));
     let message = $(`#${input.field.id}-message`)[0];
+    if(localStorage.getItem('PETS')) {
+        let pets = JSON.parse(localStorage.getItem('PETS'));
 
-    if(pets.length && pets.some(pet => pet.id === input.field.value)) {
-        setMessage(input.field, message, messageErrors.uniqueID, false);
-        return false;
+        if(pets.length && pets.some(pet => pet.id === input.field.value)) {
+            setMessage(input.field, message, messageErrors.uniqueID, false);
+            return false;
+
+        } else {
+            setMessage(input.field, message, '', true);
+            return true;
+        }
 
     } else {
         setMessage(input.field, message, '', true);

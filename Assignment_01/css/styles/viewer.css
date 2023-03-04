@@ -7,6 +7,13 @@
     stroke: #ff0000;
 }
 
+.blanb-view {
+    font-size: 1.8rem!important;
+    padding: 2rem!important;
+    text-align: center;
+    text-transform: capitalize;
+}
+
 .icons.icons-true, .icons.icons-true path {
     color: #008000;
     stroke: #008000;
@@ -17,11 +24,19 @@
         overflow-x: scroll;
         width: 100%;
     }
+
+    .viewer .table {
+        width: 150rem;
+    }
 }
 
 @media screen and (min-width: 992px) {
     .viewer {
         overflow-x: unset;
+        width: 100%;
+    }
+
+    .viewer .table {
         width: 100%;
     }
 }
