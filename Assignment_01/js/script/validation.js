@@ -7,11 +7,13 @@ import { messageErrors } from "./data.js";
  * @param {*} rules 
  */
 function validField(input) {
-    let state;
-    for(let i = 0; i < input.rules.length; i++) {
-        state = validator(input, input.rules[i]);
-        if(!state) {
-            break;
+    let state = true;
+    if(input.rules.length > 0) {
+        for(let i = 0; i < input.rules.length; i++) {
+            state = validator(input, input.rules[i]);
+            if(!state) {
+                break;
+            }
         }
     }
     return state;
@@ -33,6 +35,10 @@ function validator(input, rule) {
 
         case 'range':
             state = range(input);
+            break
+
+        case 'unique':
+            state = unique(input);
             break
 
         case 'required':
@@ -73,13 +79,25 @@ function setMessage(field, message, messageContent, state) {
 function required(input) {
     let message = $(`#${input.field.id}-message`)[0];
 
-    if(input.field.value.trim()) {
-        setMessage(input.field, message, '', true);
-        return true;
+    if(input.field.type === 'checkbox') {
+        if(input.field.checked) {
+            setMessage(input.field, message, '', true);
+            return true;
+
+        } else {
+            setMessage(input.field, message, messageErrors.required, false);
+            return false;
+        }
 
     } else {
-        setMessage(input.field, message, messageErrors.required, false);
-        return false;
+        if(input.field.value.trim()) {
+            setMessage(input.field, message, '', true);
+            return true;
+    
+        } else {
+            setMessage(input.field, message, messageErrors.required, false);
+            return false;
+        }
     }
 }
 
@@ -126,6 +144,20 @@ function range(input) {
     }
 }
 
+function unique(input) {
+    let pets = JSON.parse(localStorage.getItem('PETS'));
+    let message = $(`#${input.field.id}-message`)[0];
+
+    if(pets.length && pets.some(pet => pet.id === input.field.value)) {
+        setMessage(input.field, message, messageErrors.uniqueID, false);
+        return false;
+
+    } else {
+        setMessage(input.field, message, '', true);
+        return true;
+    }
+}
+
 /**
  * 
  * @param {*} form 
@@ -134,18 +166,22 @@ function range(input) {
 export function validation (form, fields, callback) {
     let valid = false;
     fields.forEach(itemField => {
-        itemField.field.addEventListener('blur', (event) => {
-            validField(itemField);
-        })
+        if(itemField.rules.length) {
+            itemField.field.addEventListener('blur', (event) => {
+                validField(itemField);
+            })
+        }
     })
 
     form.addEventListener('submit', (event) => {
         event.preventDefault();
         fields.forEach(itemField => {
-            valid = validField(itemField);
+            if(itemField.rules.length) {
+                valid = validField(itemField);
+            }
         })
         if(valid) {
-            callback(state);
+            callback(form, fields);
         }
     })
 }
