@@ -5,6 +5,7 @@ export const messageErrors = {
     number: 'Please enter number',
     required: 'Please enter content',
     uniqueID: 'ID must be unique!',
+    rangeDefault: 'Value must be between',
     type: 'Please select Type!',
     weight: 'Weight must be between 1 and 15!',
 }

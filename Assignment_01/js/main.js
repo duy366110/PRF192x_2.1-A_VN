@@ -1,7 +1,8 @@
 "use strict";
 import { petInfo } from './script/query.js';
 import {validation} from './script/validation.js';
-import {deletePet, savePet} from './script/executed.js';
+import {messageErrors} from './script/data.js';
+import {deletePet, savePet, showPetHealthy} from './script/executed.js';
 import {renderPetTemplate} from './script/render.js';
 
 /**
@@ -11,14 +12,25 @@ import {renderPetTemplate} from './script/render.js';
  * 3) After save pet successfull call function renderPetView
  */
 window.onload = function(e) {
-    ((renderPetView) => {
+    ((renderPetView, showPetHealthyView) => {
         validation(petInfo.infor, [
             {
                 field: petInfo.age,
                 name: 'age',
                 type: 'input',
                 rules: [
-                    { error: 'required'},{error: 'number'},{error: 'range'}
+                    {
+                        condition: 'required',
+                        message: '',
+                    },
+                    {
+                        condition: 'number',
+                        message: '',
+                    },
+                    {
+                        condition: 'range',
+                        message: messageErrors.age,
+                    }
                 ]
             },
             {
@@ -26,7 +38,10 @@ window.onload = function(e) {
                 name: 'breed',
                 type: 'selector',
                 rules: [
-                    {error: 'required'}
+                    {
+                        condition: 'required',
+                        message: messageErrors.breed,
+                    }
                 ]
             },
             {
@@ -46,7 +61,14 @@ window.onload = function(e) {
                 name: 'id',
                 type: 'input',
                 rules: [
-                    {error: 'required'}, {error: 'unique'}
+                    {
+                        condition: 'required',
+                        message: '',
+                    },
+                    {
+                        condition: 'unique',
+                        message: '',
+                    }
                 ]
             },
             {
@@ -54,7 +76,18 @@ window.onload = function(e) {
                 name: 'length',
                 type: 'input',
                 rules: [
-                    {error: 'required'},{error: 'number'},{error: 'range'}
+                    { 
+                        condition: 'required',
+                        message: '',
+                    },
+                    {
+                        condition: 'number',
+                        message: '',
+                    },
+                    {
+                        condition: 'range',
+                        message: messageErrors.length,
+                    }
                 ]
             },
             {
@@ -62,7 +95,10 @@ window.onload = function(e) {
                 name: 'name',
                 type: 'input',
                 rules: [
-                    {error: 'required'}
+                    {
+                        condition: 'required',
+                        message: '',
+                    }
                 ]
             },
             {
@@ -76,7 +112,10 @@ window.onload = function(e) {
                 name: 'type',
                 type: 'selector',
                 rules: [
-                    {error: 'required'}
+                    {
+                        condition: 'required',
+                        message: messageErrors.type,
+                    }
                 ]
             },
             {
@@ -90,10 +129,22 @@ window.onload = function(e) {
                 name: 'weight',
                 type: 'input',
                 rules: [
-                    {error: 'required'},{error: 'number'},{error: 'range'}
+                    {
+                        condition: 'required',
+                        message: '',
+                    },
+                    {
+                        condition: 'number',
+                        message: '',
+                    },
+                    {
+                        condition: 'range',
+                        message: messageErrors.weight,
+                    }
                 ]
             }
         ], savePet);
         renderPetView(deletePet);
-    })(renderPetTemplate)
+        showPetHealthyView();
+    })(renderPetTemplate, showPetHealthy)
 }

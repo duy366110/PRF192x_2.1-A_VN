@@ -14,14 +14,18 @@ export function deletePet(pets) {
 
     for(let index = 0; index < btnDeletes.length; index++) {
         btnDeletes[index].addEventListener('click', function(event) {
-            pets.forEach((pet, ids) => {
-                if(event.target.id === pet.id) {
-                    id = ids;
-                }
-            })
-            pets.splice(id, 1);
-            localStorage.setItem('PETS', JSON.stringify(pets));
-            window.location.reload();
+            let accuracy = confirm('Are you sure?');
+
+            if(accuracy) {
+                pets.forEach((pet, ids) => {
+                    if(event.target.id === pet.id) {
+                        id = ids;
+                    }
+                })
+                pets.splice(id, 1);
+                localStorage.setItem('PETS', JSON.stringify(pets));
+                window.location.reload();
+            }
         })
     }
 }
@@ -85,4 +89,39 @@ export function savePet(form, fields) {
     localStorage.setItem('PETS', JSON.stringify(PETS));
     form.reset();
     renderPetTemplate(deletePet);
+}
+
+
+
+export function showPetHealthy() {
+    let btnPetHealthy = $('#showPetHealthy')[0];
+
+    let render = (localStorage.getItem('RENDER'))? (localStorage.getItem('RENDER')) : 'SA';
+    if(render === 'SA') {
+        btnPetHealthy.textContent = 'Show Healthy Pet';
+        btnPetHealthy.classList.remove('show-healthy-pet');
+
+    } else {
+        btnPetHealthy.textContent = 'Show All Pet';
+        btnPetHealthy.classList.add('show-healthy-pet');
+    }
+
+
+    btnPetHealthy.addEventListener('click', function(event) {
+        if(this.classList.contains('show-healthy-pet')) {
+            // SHOW ALL PET
+            this.classList.remove('show-healthy-pet');
+            this.textContent = 'Show Healthy Pet';
+            localStorage.setItem('RENDER', 'SA');
+            renderPetTemplate(deletePet);
+
+        } else {
+            // SHOW HEALTHY PET
+            this.classList.add('show-healthy-pet');
+            this.textContent = 'Show All Pet';
+            localStorage.setItem('RENDER', 'SH');
+            renderPetTemplate(deletePet);
+
+        }
+    })
 }
