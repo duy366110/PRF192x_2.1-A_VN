@@ -1,7 +1,16 @@
 import {PET, PETS} from './data.js';
 import {renderPetTemplate} from './render.js';
 
+let $ = document.querySelector.bind(document);
 let $$ = document.querySelectorAll.bind(document);
+
+
+export function caculatorBMI() {
+    let BMI = $('#caculatorBMI');
+    BMI.addEventListener('click', function(event) {
+        renderPetTemplate(deletePet, true);
+    })
+}
 
 /**
  * 
@@ -47,6 +56,7 @@ function getDate() {
     return date;
 }
 
+
 /**
  * 
  * @param {*} form this's form information pet from HTML recive validation.js
@@ -77,6 +87,7 @@ export function savePet(form, fields) {
             }
         })
     })
+    pet.caculatorBMI();
 
     if(localStorage.getItem('PETS')) {
         Object.assign(PETS, JSON.parse(localStorage.getItem('PETS')));
@@ -88,13 +99,15 @@ export function savePet(form, fields) {
 
     localStorage.setItem('PETS', JSON.stringify(PETS));
     form.reset();
-    renderPetTemplate(deletePet);
+    renderPetTemplate(deletePet, false);
 }
 
 
-
-export function showPetHealthy() {
-    let btnPetHealthy = $('#showPetHealthy')[0];
+/**
+ * Function show pet with condition healthy pet or show all pet.
+ */
+export function renderPetHealthyView() {
+    let btnPetHealthy = $('#showPetHealthy');
 
     let render = (localStorage.getItem('RENDER'))? (localStorage.getItem('RENDER')) : 'SA';
     if(render === 'SA') {
@@ -113,14 +126,14 @@ export function showPetHealthy() {
             this.classList.remove('show-healthy-pet');
             this.textContent = 'Show Healthy Pet';
             localStorage.setItem('RENDER', 'SA');
-            renderPetTemplate(deletePet);
+            renderPetTemplate(deletePet, false);
 
         } else {
             // SHOW HEALTHY PET
             this.classList.add('show-healthy-pet');
             this.textContent = 'Show All Pet';
             localStorage.setItem('RENDER', 'SH');
-            renderPetTemplate(deletePet);
+            renderPetTemplate(deletePet, false);
 
         }
     })
