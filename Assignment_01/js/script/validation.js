@@ -1,5 +1,14 @@
 import { messageErrors } from "./data.js";
 
+/**
+ * 
+ * @param {*} idField id element small show message.
+ * @returns element small show message on HTML page.
+ */
+function getFieldMessage(idField) {
+    return $(`#${idField}-message`)[0];
+}
+
 
 /**
  * 
@@ -28,22 +37,22 @@ function validField(input) {
  */
 function validator(input, rule) {
     let status = true;
-    switch(rule.error) {
+    switch(rule.condition) {
         case 'number':
-            status = numbers(input);
+            status = numbers(input, rule.message);
             break
 
         case 'range':
-            status = range(input);
+            status = range(input, rule.message);
             break
 
         case 'unique':
-            status = unique(input);
+            status = unique(input, rule.message);
             break
 
         case 'required':
         default:
-            status = required(input);
+            status = required(input, rule.message);
             break;
     }
 
@@ -77,26 +86,27 @@ function setMessage(input, message, messageContent, status) {
  * @param {*} input field input from form pet information.
  * @returns status validation field.
  */
-function required(input) {
-    let message = $(`#${input.field.id}-message`)[0];
+function required(input, messageContent) {
+    let messageField = getFieldMessage(input.field.id);
+    let message = (messageContent)? messageContent: messageErrors.required;
 
     if(input.field.type === 'checkbox') {
         if(input.field.checked) {
-            setMessage(input.field, message, '', true);
+            setMessage(input.field, messageField, '', true);
             return true;
 
         } else {
-            setMessage(input.field, message, messageErrors.required, false);
+            setMessage(input.field, messageField, message, false);
             return false;
         }
 
     } else {
         if(input.field.value.trim()) {
-            setMessage(input.field, message, '', true);
+            setMessage(input.field, messageField, '', true);
             return true;
     
         } else {
-            setMessage(input.field, message, messageErrors.required, false);
+            setMessage(input.field, messageField, message, false);
             return false;
         }
     }
@@ -108,16 +118,17 @@ function required(input) {
  * @param {*} input field input from form pet information.
  * @returns status validation field.
  */
-function numbers(input) {
-    let message = $(`#${input.field.id}-message`)[0];
+function numbers(input, messageContent) {
+    let messageField = getFieldMessage(input.field.id);
     let inputValue = Number(input.field.value);
+    let message = (messageContent)? messageContent :  messageErrors.number;
 
     if(typeof inputValue) {
-        setMessage(input.field, message, '', true);
+        setMessage(input.field, messageField, '', true);
         return true;
 
     } else {
-        setMessage(input.field, message, messageErrors.number, false);
+        setMessage(input.field, messageField, message, false);
         return false;
     }
 }
@@ -129,18 +140,20 @@ function numbers(input) {
  * @param {*} input field input from form pet information.
  * @returns status validation field.
  */
-function range(input) {
-    let message = $(`#${input.field.id}-message`)[0];
+function range(input, messageContent) {
+    let messageField = getFieldMessage(input.field.id);
     let inputValue = Number(input.field.value);
     let min = Number(input.field.attributes['attr-min'].value);
     let max = Number(input.field.attributes['attr-max'].value);
 
+    let message = (messageContent)? messageContent : `${messageErrors.rangeDefault} ${min} and ${max}`;
+
     if((inputValue >= min) && (inputValue <= max)) {
-        setMessage(input.field, message, '', true);
+        setMessage(input.field, messageField, '', true);
         return true;
 
     } else {
-        setMessage(input.field, message, messageErrors.age, false);
+        setMessage(input.field, messageField, message, false);
         return false;
     }
 }
@@ -152,22 +165,24 @@ function range(input) {
  * @param {*} input field input from form pet information.
  * @returns status validation field.
  */
-function unique(input) {
-    let message = $(`#${input.field.id}-message`)[0];
+function unique(input, messageContent) {
+    let messageField = getFieldMessage(input.field.id);
+    let message = (messageContent)? messageContent :  messageErrors.uniqueID;
+
     if(localStorage.getItem('PETS')) {
         let pets = JSON.parse(localStorage.getItem('PETS'));
 
         if(pets.length && pets.some(pet => pet.id === input.field.value)) {
-            setMessage(input.field, message, messageErrors.uniqueID, false);
+            setMessage(input.field, messageField, message, false);
             return false;
 
         } else {
-            setMessage(input.field, message, '', true);
+            setMessage(input.field, messageField, '', true);
             return true;
         }
 
     } else {
-        setMessage(input.field, message, '', true);
+        setMessage(input.field, messageField, '', true);
         return true;
     }
 }

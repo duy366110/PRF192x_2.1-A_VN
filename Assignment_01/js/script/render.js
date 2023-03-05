@@ -43,10 +43,23 @@ export function renderPetTemplate(deletePet) {
     let viewer = $('#tbody');
     let pets = [];
     let status = (localStorage.getItem('PETS') && JSON.parse(localStorage.getItem('PETS')).length)? true : false;
+    let render = (localStorage.getItem('RENDER') === 'SH')? localStorage.getItem('RENDER') : 'SA';
     let template = ``;
 
     if(status) {
         pets = JSON.parse(localStorage.getItem('PETS'));
+        if(render === 'SH') {
+            pets = pets.filter((pet) => {
+                if(pet.vaccinated && pet.dewormed && pet.sterilized) {
+                    return pet;
+                }
+            })
+        }
+
+        status = (pets.length)? true : false;
+    }
+
+    if(status) {
         pets.forEach(pet => {
             template += `
                 <tr>
@@ -54,8 +67,8 @@ export function renderPetTemplate(deletePet) {
                     <td>${pet.name}</td>
                     <td>${pet.age}</td>
                     <td>${pet.type}</td>
-                    <td>${pet.weight}</td>
-                    <td>${pet.length}</td>
+                    <td>${pet.weight} kg</td>
+                    <td>${pet.length} cm</td>
                     <td>${pet.breed}</td>
                     <td>${renderIcon(pet.color, false)}</td>
                     <td>${renderIcon('', pet.vaccinated)}</td>
