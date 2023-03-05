@@ -1,3 +1,14 @@
+.table {
+    border-bottom: 1px solid #dee2e6;
+}
+.table thead  th {
+    border-bottom: 3px solid #212529;
+}
+
+.table thead  th, .table tbody td {
+    padding: 1.5rem 0.75rem;
+}
+
 .icons {
     width: 25px;
 }

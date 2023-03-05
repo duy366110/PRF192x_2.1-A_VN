@@ -39,7 +39,7 @@ function renderIcon(color, status) {
  * Function render view when add new pet.
  * @param {*} deletePet Callback function devele pet
  */
-export function renderPetTemplate(deletePet) {
+export function renderPetTemplate(deletePet, bmi) {
     let viewer = $('#tbody');
     let pets = [];
     let status = (localStorage.getItem('PETS') && JSON.parse(localStorage.getItem('PETS')).length)? true : false;
@@ -74,6 +74,7 @@ export function renderPetTemplate(deletePet) {
                     <td>${renderIcon('', pet.vaccinated)}</td>
                     <td>${renderIcon('', pet.dewormed)}</td>
                     <td>${renderIcon('', pet.sterilized)}</td>
+                    <td>${(bmi)? (pet.bmi)? pet.bmi : '?' : '?'}</td>
                     <td>${pet.createDate}</td>
                     <td><button type="button" class='btn btn-danger btn-pet-delete' id='${pet.id}'>delete</button></td>
                 </tr>

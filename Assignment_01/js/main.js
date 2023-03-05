@@ -2,7 +2,7 @@
 import { petInfo } from './script/query.js';
 import {validation} from './script/validation.js';
 import {messageErrors} from './script/data.js';
-import {deletePet, savePet, showPetHealthy} from './script/executed.js';
+import {caculatorBMI, deletePet, savePet, renderPetHealthyView} from './script/executed.js';
 import {renderPetTemplate} from './script/render.js';
 
 /**
@@ -12,7 +12,7 @@ import {renderPetTemplate} from './script/render.js';
  * 3) After save pet successfull call function renderPetView
  */
 window.onload = function(e) {
-    ((renderPetView, showPetHealthyView) => {
+    ((BMI, renderPetView, renderPetHealthyView) => {
         validation(petInfo.infor, [
             {
                 field: petInfo.age,
@@ -144,7 +144,9 @@ window.onload = function(e) {
                 ]
             }
         ], savePet);
-        renderPetView(deletePet);
-        showPetHealthyView();
-    })(renderPetTemplate, showPetHealthy)
+        renderPetView(deletePet, false);
+        renderPetHealthyView();
+        BMI();
+
+    })(caculatorBMI, renderPetTemplate, renderPetHealthyView)
 }
