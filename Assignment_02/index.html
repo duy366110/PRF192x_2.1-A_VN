@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/bootstrap/bootstrap.min.css"/>
+    <link rel="stylesheet" href="./css/main.css"/>
+    <title>ASSIGNMENT - 01</title>
+</head>
+<body>
+    <header>
+        <div class="container-fluid">
+            <nav class="navigation d-flex align-items-center p-y2-x1-5">
+                <h1 class="project-title">Pet managament</h1>
+            </nav>
+        </div>
+    </header> 
+
+    <main>
+        <div class="container-fluid">
+            <section class="controller d-flex align-items-center justify-content-center">
+                <div class="controller-pet controller-wrapper">
+                    <form id="info" class="row">
+                        <div class="form-group form-group-single col-12">
+                          <label class="title w-10" for="pet-id">Pet ID</label>
+                          <div class="w-100">
+                            <input type="text" class="form-control" id="pet-id" name="pet-id" placeholder="Input ID"/>
+                            <small id="pet-id-message" class="form-text text-muted"></small>
+                          </div>
+                        </div>
+
+                        <div class="form-group form-group-single col-12 col-md-7">
+                            <label class="title w-11" for="pet-id">Pet name</label>
+                            <div class="w-100">
+                                <input type="text" class="form-control" id="pet-name" name="pet-name" placeholder="Input name"/>
+                                <small id="pet-name-message" class="form-text text-muted"></small>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-single col-12 col-md-5">
+                            <label class="title w-11" for="pet-id">Age</label>
+                            <div class="w-100">
+                                <input type="text" class="form-control double-form-control" id="pet-age" name="pet-age" attr-min="1" attr-max="15" placeholder="Input age"/>
+                                <small id="pet-age-message" class="form-text text-muted"></small>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group form-group-single col-12">
+                            <label class="title w-10" for="pet-type">Type</label>
+                            <div class="w-100">
+                                <select class="form-control" id="pet-type" name="pet-type">
+                                    <option value="">Select type</option>
+                                    <option value="Bird">Bird</option>
+                                    <option value="Cat">Cat</option>
+                                    <option value="Dog">Dog</option>
+                                    <option value="Fish">Fish</option>
+                                    <option value="Pig">Pig</option>
+                                </select>
+                                <small id="pet-type-message" class="form-text text-muted"></small>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-12 col-md-7">
+                            <label class="title w-11" for="pet-weight">Weight</label>
+                            <div class="w-100">
+                                <input type="text" class="form-control" id="pet-weight" name="pet-weight" attr-min="1" attr-max="15" placeholder="Input weight"/>
+                                <small id="pet-weight-message" class="form-text text-muted"></small>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-12 col-md-5">
+                            <label class="title w-11" for="pet-length">length</label>
+                            <div class="w-100">
+                                <input type="text" class="form-control double-form-control" id="pet-length" name="pet-length" attr-min="1" attr-max="100" placeholder="Input length"/>
+                                <small id="pet-length-message" class="form-text text-muted"></small>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-12 col-md-7">
+                            <label class="title w-11" for="pet-color">Color</label>
+                            <div class="w-100">
+                                <input type="color" class="form-control" id="pet-color" name="pet-color"/>
+                                <small id="pet-color-message" class="form-text text-muted"></small>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-12 col-md-5">
+                            <label class="title w-11" for="pet-breed">breed</label>
+                            <div class="w-100">
+                                <select class="form-control double-form-control" id="pet-breed" name="pet-breed">
+                                    <option value="">Select breed</option>
+                                    <option value="Alaska">Alaska</option>
+                                    <option value="Tabby">Tabby</option>
+                                    <option value="Mixed Breeb">Mixed Breeb</option>
+                                </select>
+                                <small id="pet-breed-message" class="form-text text-muted"></small>
+                            </div>
+                        </div>
+
+                        <div class="vaccinated d-flex align-items-center col-12">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="vaccinated" id="pet-vaccinated" name="vaccinated">
+                                <label class="form-check-label" for="pet-vaccinated">Vaccinated</label>
+                                <small id="pet-vaccinated-message" class="form-text text-muted"></small>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="dewormed" id="pet-dewormed" name="dewormed">
+                                <label class="form-check-label" for="pet-dewormed">Dewormed</label>
+                                <small id="pet-dewormed-message" class="form-text text-muted"></small>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="sterilized" id="pet-sterilized" name="sterilized">
+                                <label class="form-check-label" for="pet-sterilized">Sterilized</label>
+                                <small id="pet-sterilized-message" class="form-text text-muted"></small>
+                            </div>
+                        </div>
+
+                        <div class="col-12 mt-5">
+                            <button type="submit" class="btn btn-action btn-primary">Submit</button>
+                            <button type="button" id="showPetHealthy" class="btn btn-action btn-warning">Show healthy Pet</button>
+                            <button type="button" id="caculatorBMI" class="btn btn-action btn-warning">caculate BMI</button>
+                        </div>
+                      </form>
+                </div>
+            </section>
+
+            <section class="viewer p-y2-x1-5">
+                <table class="table table-striped table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Weight</th>
+                        <th scope="col">Length</th>
+                        <th scope="col">Breed</th>
+                        <th scope="col">Color</th>
+                        <th scope="col">vaccinated</th>
+                        <th scope="col">Dewormed</th>
+                        <th scope="col">Sterilized</th>
+                        <th scope="col">BMI</th>
+                        <th scope="col">Date Added</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbody"></tbody>
+                  </table>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="silde-bar">
+            <ul>
+                <li>
+                    <button type="button" class="silde-bar--item active">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>                          
+                    </button>
+                </li>
+                <li>
+                    <a href="#" class="silde-bar--item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                        </svg>                          
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="silde-bar--item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                        </svg>                                                    
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="silde-bar--item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                        </svg>
+                    </a>              
+                </li>
+                <li>
+                    <a href="#" class="silde-bar--item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                        </svg>                                                   
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+    
+    <script src="./js/bootstrap/jquery-3.6.3.js"></script>
+    <script src="./js/bootstrap/bootstrap.min.js"></script>
+    <script type="module" src="./js/main.js"></script>
+</body>
+</html>
