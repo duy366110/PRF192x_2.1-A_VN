@@ -4,6 +4,10 @@ footer .silde-bar {
     height: 100%;
     position: fixed;
     top: 0px;
+    width: 15rem;
+}
+
+footer .silde-bar.active.active {
     width: 4.4rem;
 }
 

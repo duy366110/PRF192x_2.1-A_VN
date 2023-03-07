@@ -16,7 +16,7 @@
     padding: 10px;
 }
 
-.silde-bar--item:hover, .silde-bar--item.active {
+.silde-bar ul li:hover, .silde-bar ul li.active {
     background-color: var(--two-color);
 }
 
