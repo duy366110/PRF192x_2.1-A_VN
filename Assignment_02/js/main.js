@@ -12,141 +12,166 @@ import {renderPetTemplate} from './script/render.js';
  * 3) After save pet successfull call function renderPetView
  */
 window.onload = function(e) {
-    ((BMI, renderPetView, renderPetHealthyView) => {
-        validation(petInfo.infor, [
-            {
-                field: petInfo.age,
-                name: 'age',
-                type: 'input',
-                rules: [
-                    {
-                        condition: 'required',
-                        message: '',
-                    },
-                    {
-                        condition: 'number',
-                        message: '',
-                    },
-                    {
-                        condition: 'range',
-                        message: messageErrors.age,
-                    }
-                ]
-            },
-            {
-                field: petInfo.breed,
-                name: 'breed',
-                type: 'selector',
-                rules: [
-                    {
-                        condition: 'required',
-                        message: messageErrors.breed,
-                    }
-                ]
-            },
-            {
-                field: petInfo.color,
-                name: 'color',
-                type: 'input',
-                rules: []
-            },
-            {
-                field: petInfo.dewormed,
-                name: 'dewormed',
-                type: 'checkbox',
-                rules: []
-            },
-            {
-                field: petInfo.id,
-                name: 'id',
-                type: 'input',
-                rules: [
-                    {
-                        condition: 'required',
-                        message: '',
-                    },
-                    {
-                        condition: 'unique',
-                        message: '',
-                    }
-                ]
-            },
-            {
-                field: petInfo.length,
-                name: 'length',
-                type: 'input',
-                rules: [
-                    { 
-                        condition: 'required',
-                        message: '',
-                    },
-                    {
-                        condition: 'number',
-                        message: '',
-                    },
-                    {
-                        condition: 'range',
-                        message: messageErrors.length,
-                    }
-                ]
-            },
-            {
-                field: petInfo.name,
-                name: 'name',
-                type: 'input',
-                rules: [
-                    {
-                        condition: 'required',
-                        message: '',
-                    }
-                ]
-            },
-            {
-                field: petInfo.sterilized,
-                name: 'sterilized',
-                type: 'checkbox',
-                rules: []
-            },
-            {
-                field: petInfo.type,
-                name: 'type',
-                type: 'selector',
-                rules: [
-                    {
-                        condition: 'required',
-                        message: messageErrors.type,
-                    }
-                ]
-            },
-            {
-                field: petInfo.vaccinated,
-                name: 'vaccinated',
-                type: 'checkbox',
-                rules: []
-            },
-            {
-                field: petInfo.weight,
-                name: 'weight',
-                type: 'input',
-                rules: [
-                    {
-                        condition: 'required',
-                        message: '',
-                    },
-                    {
-                        condition: 'number',
-                        message: '',
-                    },
-                    {
-                        condition: 'range',
-                        message: messageErrors.weight,
-                    }
-                ]
-            }
-        ], savePet);
-        renderPetView(deletePet, false);
-        renderPetHealthyView();
-        BMI();
+    // ((BMI, renderPetView, renderPetHealthyView) => {
+    //     validation(petInfo.infor, [
+    //         {
+    //             field: petInfo.age,
+    //             name: 'age',
+    //             type: 'input',
+    //             rules: [
+    //                 {
+    //                     condition: 'required',
+    //                     message: '',
+    //                 },
+    //                 {
+    //                     condition: 'number',
+    //                     message: '',
+    //                 },
+    //                 {
+    //                     condition: 'range',
+    //                     message: messageErrors.age,
+    //                 }
+    //             ]
+    //         },
+    //         {
+    //             field: petInfo.breed,
+    //             name: 'breed',
+    //             type: 'selector',
+    //             rules: [
+    //                 {
+    //                     condition: 'required',
+    //                     message: messageErrors.breed,
+    //                 }
+    //             ]
+    //         },
+    //         {
+    //             field: petInfo.color,
+    //             name: 'color',
+    //             type: 'input',
+    //             rules: []
+    //         },
+    //         {
+    //             field: petInfo.dewormed,
+    //             name: 'dewormed',
+    //             type: 'checkbox',
+    //             rules: []
+    //         },
+    //         {
+    //             field: petInfo.id,
+    //             name: 'id',
+    //             type: 'input',
+    //             rules: [
+    //                 {
+    //                     condition: 'required',
+    //                     message: '',
+    //                 },
+    //                 {
+    //                     condition: 'unique',
+    //                     message: '',
+    //                 }
+    //             ]
+    //         },
+    //         {
+    //             field: petInfo.length,
+    //             name: 'length',
+    //             type: 'input',
+    //             rules: [
+    //                 { 
+    //                     condition: 'required',
+    //                     message: '',
+    //                 },
+    //                 {
+    //                     condition: 'number',
+    //                     message: '',
+    //                 },
+    //                 {
+    //                     condition: 'range',
+    //                     message: messageErrors.length,
+    //                 }
+    //             ]
+    //         },
+    //         {
+    //             field: petInfo.name,
+    //             name: 'name',
+    //             type: 'input',
+    //             rules: [
+    //                 {
+    //                     condition: 'required',
+    //                     message: '',
+    //                 }
+    //             ]
+    //         },
+    //         {
+    //             field: petInfo.sterilized,
+    //             name: 'sterilized',
+    //             type: 'checkbox',
+    //             rules: []
+    //         },
+    //         {
+    //             field: petInfo.type,
+    //             name: 'type',
+    //             type: 'selector',
+    //             rules: [
+    //                 {
+    //                     condition: 'required',
+    //                     message: messageErrors.type,
+    //                 }
+    //             ]
+    //         },
+    //         {
+    //             field: petInfo.vaccinated,
+    //             name: 'vaccinated',
+    //             type: 'checkbox',
+    //             rules: []
+    //         },
+    //         {
+    //             field: petInfo.weight,
+    //             name: 'weight',
+    //             type: 'input',
+    //             rules: [
+    //                 {
+    //                     condition: 'required',
+    //                     message: '',
+    //                 },
+    //                 {
+    //                     condition: 'number',
+    //                     message: '',
+    //                 },
+    //                 {
+    //                     condition: 'range',
+    //                     message: messageErrors.weight,
+    //                 }
+    //             ]
+    //         }
+    //     ], savePet);
+    //     renderPetView(deletePet, false);
+    //     renderPetHealthyView();
+    //     BMI();
+    // })(caculatorBMI, renderPetTemplate, renderPetHealthyView)
 
-    })(caculatorBMI, renderPetTemplate, renderPetHealthyView)
+    let app = (function() {
+
+        return {
+            event: {
+                BMI: function() {
+                    caculatorBMI();
+                },
+                sidebar: function() {
+                    console.log('Hello world');
+                },
+                renderView: function() {
+                    renderPetTemplate(deletePet, false);
+                },
+                renderViewHealthyPet: function() {
+                    renderPetHealthyView();
+                }
+            }
+        }
+
+    })()
+
+    app.event.sidebar();
+    app.event.renderView();
+    app.event.renderViewHealthyPet();
+    app.event.BMI();
 }
