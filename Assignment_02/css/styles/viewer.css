@@ -1,0 +1,53 @@
+.table {
+    border-bottom: 1px solid #dee2e6;
+}
+.table thead  th {
+    border-bottom: 3px solid #212529;
+}
+
+.table thead  th, .table tbody td {
+    padding: 1.5rem 0.75rem;
+}
+
+.icons {
+    width: 25px;
+}
+
+.icons.icons-false, .icons.icons-false path {
+    color: #ff0000;
+    stroke: #ff0000;
+}
+
+.blanb-view {
+    font-size: 1.8rem!important;
+    padding: 2rem!important;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.icons.icons-true, .icons.icons-true path {
+    color: #008000;
+    stroke: #008000;
+}
+
+@media screen and (min-width: 320px) {
+    .viewer {
+        overflow-x: scroll;
+        width: 100%;
+    }
+
+    .viewer .table {
+        width: 150rem;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .viewer {
+        overflow-x: unset;
+        width: 100%;
+    }
+
+    .viewer .table {
+        width: 100%;
+    }
+}
