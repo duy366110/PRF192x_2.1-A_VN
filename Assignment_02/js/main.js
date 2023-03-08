@@ -1,6 +1,6 @@
 "use strict";
 import { petInfo } from './script/query.js';
-import {validation} from './script/validation.js';
+import {VALIDATION} from './script/validation.js';
 import {messageErrors} from './script/data.js';
 import {caculatorBMI, deletePet, savePet, renderPetHealthyView} from './script/executed.js';
 import {RENDERVIEW} from './script/render.js';
@@ -13,7 +13,7 @@ import {RENDERVIEW} from './script/render.js';
  */
 window.onload = function(e) {
     let app = (function() {
-        validation(petInfo.infor, [
+        VALIDATION.validation(petInfo.infor, [
             {
                 field: petInfo.age,
                 name: 'age',
