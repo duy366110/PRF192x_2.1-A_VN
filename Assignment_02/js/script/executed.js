@@ -1,5 +1,6 @@
-import {PET, PETS} from './data.js';
-import {renderPetTemplate} from './render.js';
+import {RENDER, PET, PETS} from './data.js';
+import {Store} from './store.js';
+import {RENDERVIEW} from './render.js';
 
 let $ = document.querySelector.bind(document);
 let $$ = document.querySelectorAll.bind(document);
@@ -8,7 +9,7 @@ let $$ = document.querySelectorAll.bind(document);
 export function caculatorBMI() {
     let BMI = $('#caculatorBMI');
     BMI.addEventListener('click', function(event) {
-        renderPetTemplate(deletePet, true);
+        RENDERVIEW.view(deletePet, true);
     })
 }
 
@@ -32,8 +33,7 @@ export function deletePet(pets) {
                     }
                 })
                 pets.splice(id, 1);
-                localStorage.setItem('PETS', JSON.stringify(pets));
-                window.location.reload();
+                (Store.save('PETS', pets))? window.location.reload() : alert('Delete element failed');
             }
         })
     }
@@ -89,17 +89,21 @@ export function savePet(form, fields) {
     })
     pet.caculatorBMI();
 
-    if(localStorage.getItem('PETS')) {
-        Object.assign(PETS, JSON.parse(localStorage.getItem('PETS')));
+    if(Store.get('PETS')) {
+        Object.assign(PETS, Store.get('PETS'));
         PETS.push(pet);
 
     } else {
         PETS.push(pet);
     }
 
-    localStorage.setItem('PETS', JSON.stringify(PETS));
-    form.reset();
-    renderPetTemplate(deletePet, false);
+    if(Store.save('PETS', PETS)) {
+        form.reset();
+        RENDERVIEW.view(deletePet, false);
+
+    } else {
+        alert('save element failed');
+    }
 }
 
 
@@ -109,8 +113,9 @@ export function savePet(form, fields) {
 export function renderPetHealthyView() {
     let btnPetHealthy = $('#showPetHealthy');
 
-    let render = (localStorage.getItem('RENDER'))? (localStorage.getItem('RENDER')) : 'SA';
-    if(render === 'SA') {
+    let render = (Store.check('RENDER'))? Store.get('RENDER') : RENDER;
+
+    if(render.key === 'SA') {
         btnPetHealthy.textContent = 'Show Healthy Pet';
         btnPetHealthy.classList.remove('show-healthy-pet');
 
@@ -125,16 +130,17 @@ export function renderPetHealthyView() {
             // SHOW ALL PET
             this.classList.remove('show-healthy-pet');
             this.textContent = 'Show Healthy Pet';
-            localStorage.setItem('RENDER', 'SA');
-            renderPetTemplate(deletePet, false);
+            RENDER.key = 'SA';
 
         } else {
             // SHOW HEALTHY PET
             this.classList.add('show-healthy-pet');
             this.textContent = 'Show All Pet';
-            localStorage.setItem('RENDER', 'SH');
-            renderPetTemplate(deletePet, false);
+            RENDER.key = 'SH';
 
+        }
+        if(Store.save('RENDER', RENDER)) {
+            RENDERVIEW.view(deletePet, false);
         }
     })
 }

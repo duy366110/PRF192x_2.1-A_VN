@@ -1,4 +1,5 @@
 import { messageErrors } from "./data.js";
+import {Store} from './store.js';
 
 /**
  * 
@@ -169,8 +170,8 @@ function unique(input, messageContent) {
     let messageField = getFieldMessage(input.field.id);
     let message = (messageContent)? messageContent :  messageErrors.uniqueID;
 
-    if(localStorage.getItem('PETS')) {
-        let pets = JSON.parse(localStorage.getItem('PETS'));
+    if(Store.get('PETS')) {
+        let pets = Store.get('PETS');
 
         if(pets.length && pets.some(pet => pet.id === input.field.value)) {
             setMessage(input.field, messageField, message, false);
@@ -216,3 +217,8 @@ export function validation (form, fields, savePet) {
         }
     })
 }
+
+export const VALIDATION =(() => {
+    // Thực hiện validation
+    
+})()
