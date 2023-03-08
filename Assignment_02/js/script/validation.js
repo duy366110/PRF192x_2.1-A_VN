@@ -1,220 +1,167 @@
 import { messageErrors } from "./data.js";
 import {Store} from './store.js';
 
-/**
- * 
- * @param {*} idField id element small show message.
- * @returns element small show message on HTML page.
- */
-function getFieldMessage(idField) {
-    return $(`#${idField}-message`)[0];
-}
+let $ = document.querySelector.bind(document);
 
+function VALIDATIONRULE() {
+    this.messageField = function(id) {
+        return $(`#${id}-message`);
+    }
 
-/**
- * 
- * @param {*} input single filed in form pet validation
- * @returns status checked validation field successfull or failed
- */
-function validField(input) {
-    let status = true;
-    if(input.rules.length > 0) {
-        for(let i = 0; i < input.rules.length; i++) {
-            status = validator(input, input.rules[i]);
-            if(!status) {
-                break;
-            }
+    this.messageMapper = function(input, messageField, message, status) {
+        messageField.textContent = message;
+        if(status) {
+            input.classList.remove('is-invalid');
+            messageField.classList.remove('is-invalid');
+
+        } else {
+            input.classList.add('is-invalid');
+            messageField.classList.add('is-invalid');
         }
     }
-    return status;
-}
 
+    this.num = function(el, message) {
+        message = (message)? message :  messageErrors.number;
 
-/**
- * 
- * @param {*} input field input from form pet information.
- * @param {*} rule condition validation field.
- * @returns status validation rule successfull or failed.
- */
-function validator(input, rule) {
-    let status = true;
-    switch(rule.condition) {
-        case 'number':
-            status = numbers(input, rule.message);
-            break
-
-        case 'range':
-            status = range(input, rule.message);
-            break
-
-        case 'unique':
-            status = unique(input, rule.message);
-            break
-
-        case 'required':
-        default:
-            status = required(input, rule.message);
-            break;
-    }
-
-    return status;
-}
-
-
-/**
- * 
- * @param {*} input field input from form pet information.
- * @param {*} message field small show message after field input.
- * @param {*} messageContent content for field message.
- * @param {*} status (true/false) add message or delete message.
- */
-function setMessage(input, message, messageContent, status) {
-    message.textContent = messageContent;
-    if(status) {
-        input.classList.remove('is-invalid');
-        message.classList.remove('is-invalid');
-
-    } else {
-        input.classList.add('is-invalid');
-        message.classList.add('is-invalid');
-    }
-}
-
-
-/**
- * 
- * validation field need value.
- * @param {*} input field input from form pet information.
- * @returns status validation field.
- */
-function required(input, messageContent) {
-    let messageField = getFieldMessage(input.field.id);
-    let message = (messageContent)? messageContent: messageErrors.required;
-
-    if(input.field.type === 'checkbox') {
-        if(input.field.checked) {
-            setMessage(input.field, messageField, '', true);
+        if(!Number.isNaN(Number(el.field.value))) {
+            this.messageMapper(el.field, this.messageField(el.field.id), '', true);
             return true;
 
         } else {
-            setMessage(input.field, messageField, message, false);
+            this.messageMapper(el.field, this.messageField(el.field.id), message, false);
             return false;
         }
+    },
 
-    } else {
-        if(input.field.value.trim()) {
-            setMessage(input.field, messageField, '', true);
+    this.range = function(el, message) {
+        let value = Number(el.field.value);
+        let min = Number(el.field.attributes['attr-min'].value);
+        let max = Number(el.field.attributes['attr-max'].value);
+
+        message = (message)? message : `${messageErrors.rangeDefault} ${min} and ${max}`;
+    
+        if((value >= min) && (value <= max)) {
+            this.messageMapper(el.field, this.messageField(el.field.id), '', true);
             return true;
     
         } else {
-            setMessage(input.field, messageField, message, false);
+            this.messageMapper(el.field, this.messageField(el.field.id), message, false);
             return false;
         }
-    }
-}
+    },
 
-/**
- * 
- * Validation field value number.
- * @param {*} input field input from form pet information.
- * @returns status validation field.
- */
-function numbers(input, messageContent) {
-    let messageField = getFieldMessage(input.field.id);
-    let inputValue = Number(input.field.value);
-    let message = (messageContent)? messageContent :  messageErrors.number;
-
-    if(typeof inputValue) {
-        setMessage(input.field, messageField, '', true);
-        return true;
-
-    } else {
-        setMessage(input.field, messageField, message, false);
-        return false;
-    }
-}
-
-
-/**
- * 
- * Validation field value range min - max.
- * @param {*} input field input from form pet information.
- * @returns status validation field.
- */
-function range(input, messageContent) {
-    let messageField = getFieldMessage(input.field.id);
-    let inputValue = Number(input.field.value);
-    let min = Number(input.field.attributes['attr-min'].value);
-    let max = Number(input.field.attributes['attr-max'].value);
-
-    let message = (messageContent)? messageContent : `${messageErrors.rangeDefault} ${min} and ${max}`;
-
-    if((inputValue >= min) && (inputValue <= max)) {
-        setMessage(input.field, messageField, '', true);
-        return true;
-
-    } else {
-        setMessage(input.field, messageField, message, false);
-        return false;
-    }
-}
-
-
-/**
- * 
- * Validation field value unique.
- * @param {*} input field input from form pet information.
- * @returns status validation field.
- */
-function unique(input, messageContent) {
-    let messageField = getFieldMessage(input.field.id);
-    let message = (messageContent)? messageContent :  messageErrors.uniqueID;
-
-    if(Store.get('PETS')) {
-        let pets = Store.get('PETS');
-
-        if(pets.length && pets.some(pet => pet.id === input.field.value)) {
-            setMessage(input.field, messageField, message, false);
-            return false;
-
+    this.required  = function(el, message) {
+        message = (message)? message: messageErrors.required;
+    
+        if(el.field.type === 'checkbox') {
+            if(el.field.checked) {
+                this.messageMapper(el.field, this.messageField(el.field.id), '', true);
+                return true;
+    
+            } else {
+                this.messageMapper(el.field, this.messageField(el.field.id), message, false);
+                return false;
+            }
+    
         } else {
-            setMessage(input.field, messageField, '', true);
+            if(el.field.value.trim()) {
+                this.messageMapper(el.field, this.messageField(el.field.id), '', true);
+                return true;
+        
+            } else {
+                this.messageMapper(el.field, this.messageField(el.field.id), message, false);
+                return false;
+            }
+        }
+    },
+
+    this.unique = function(el, message) {
+        message = (message)? message :  messageErrors.uniqueID;
+    
+        if(Store.get('PETS')) {
+            let pets = Store.get('PETS');
+    
+            if(pets.length && pets.some(pet => pet.id === el.field.value)) {
+                this.messageMapper(el.field, this.messageField(el.field.id), message, false);
+                return false;
+    
+            } else {
+                this.messageMapper(el.field, this.messageField(el.field.id), '', true);
+                return true;
+            }
+    
+        } else {
+            this.messageMapper(el.field, this.messageField(el.field.id), '', true);
             return true;
         }
-
-    } else {
-        setMessage(input.field, messageField, '', true);
-        return true;
     }
 }
 
 
 export const VALIDATION = (() => {
+    let validationRule = new VALIDATIONRULE();
 
-    function handleValid(form, fields, methodSave) {
+    function mapperValidation(field, rule) {
+        let status = true;
+        switch(rule.condition) {
+            case 'number':
+                status = validationRule.num(field, rule.message);
+                break
+
+            case 'range':
+                status = validationRule.range(field, rule.message);
+                break
+
+            case 'unique':
+                status = validationRule.unique(field, rule.message);
+                break
+
+            case 'required':
+            default:
+                status = validationRule.required(field, rule.message);
+                break;
+        }
+
+        return status;
+    }
+
+    function handleValidField(filed) {
+        let status = true;
+        if(filed.rules.length > 0) {
+            for(let i = 0; i < filed.rules.length; i++) {
+                status = mapperValidation(filed, filed.rules[i]);
+                if(!status) {
+                    break;
+                }
+            }
+        }
+        return status;
+    }
+
+    function handleValidForm(form, fields, methodSave) {
         let valid = false;
-        fields.forEach(itemField => {
-        if(itemField.rules.length) {
-                itemField.field.addEventListener('blur', (event) => {
-                    validField(itemField);
+        fields.forEach(el => {
+        if(el.rules.length) {
+                el.field.addEventListener('blur', (event) => {
+                    handleValidField(el);
                 })
             }
         })
 
         form.addEventListener('submit', (event) => {
             event.preventDefault();
-            fields.forEach(itemField => {
-                if(itemField.rules.length) {
-                    valid = validField(itemField);
+            fields.forEach(el => {
+                if(el.rules.length) {
+                    valid = handleValidField(el);
                 }
             })
             if(valid) {
-                savePet(form, fields);
+                methodSave(form, fields);
             }
         })
     }
 
     return {
-        validation: handleValid,
+        validation: handleValidForm,
     }
 })();
