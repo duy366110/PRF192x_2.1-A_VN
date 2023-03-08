@@ -10,7 +10,11 @@ export const messageErrors = {
     weight: 'Weight must be between 1 and 15!',
 }
 
-export let PETS = [];
+export const RENDER = {
+    key: 'SA',
+}
+
+export const PETS = [];
 export function PET(age, breed, color, createDate, dewormed, length, id, name, sterilized, type, weight, vaccinated) {
     this.age = age;
     this.bmi = '',
