@@ -189,36 +189,32 @@ function unique(input, messageContent) {
 }
 
 
-/**
- * 
- * @param {*} form this's form information pet from HTML
- * @param {*} fields  this's list object filed input from main.js
- * @param {*} savePet This's callback function input from main.js
- */
-export function validation (form, fields, savePet) {
-    let valid = false;
-    fields.forEach(itemField => {
-        if(itemField.rules.length) {
-            itemField.field.addEventListener('blur', (event) => {
-                validField(itemField);
-            })
-        }
-    })
+export const VALIDATION = (() => {
 
-    form.addEventListener('submit', (event) => {
-        event.preventDefault();
+    function handleValid(form, fields, methodSave) {
+        let valid = false;
         fields.forEach(itemField => {
-            if(itemField.rules.length) {
-                valid = validField(itemField);
+        if(itemField.rules.length) {
+                itemField.field.addEventListener('blur', (event) => {
+                    validField(itemField);
+                })
             }
         })
-        if(valid) {
-            savePet(form, fields);
-        }
-    })
-}
 
-export const VALIDATION =(() => {
-    // Thực hiện validation
-    
-})()
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            fields.forEach(itemField => {
+                if(itemField.rules.length) {
+                    valid = validField(itemField);
+                }
+            })
+            if(valid) {
+                savePet(form, fields);
+            }
+        })
+    }
+
+    return {
+        validation: handleValid,
+    }
+})();
