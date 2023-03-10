@@ -1,3 +1,4 @@
+import { EXECURED } from "./executed.js";
 import { messageErrors } from "./data.js";
 import {Store} from './store.js';
 
@@ -138,7 +139,7 @@ export const VALIDATION = (() => {
         return status;
     }
 
-    function handleValidForm(form, fields, methodSave) {
+    function handleValidForm(form, fields) {
         let valid = false;
         fields.forEach(el => {
         if(el.rules.length) {
@@ -156,7 +157,8 @@ export const VALIDATION = (() => {
                 }
             })
             if(valid) {
-                methodSave(form, fields);
+                // methodSave(form, fields);
+                EXECURED.save(fields);
             }
         })
     }
