@@ -1,0 +1,30 @@
+.form-control {
+    font-size: 1.5rem;
+    height: 3.5rem;
+}
+
+.form-control.is-invalid, .was-validated .form-control:invalid {
+    background-position: right calc(1em + 0.1875rem) center;
+}
+
+.form-text {
+    display: none;
+}
+
+.form-text.is-invalid {
+    color: rgb(254, 25, 25)!important;
+    display: block;
+}
+
+@media screen and (min-width: 320px) {
+    .form-group {
+        margin-bottom: 2.5rem;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .form-group {
+        display: flex;
+        margin-bottom: 2.5rem;
+    }
+}
