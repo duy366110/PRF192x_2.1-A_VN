@@ -31,7 +31,7 @@ export const RENDERVIEW = (function() {
     }
 
     return {
-        view: (methodDelete, bmi) => {
+        view: (bmi) => {
             let viewer = $('#tbody');
             let pets = [];
             let status = (Store.check('PETS') && Store.get('PETS').length)? true : false;
@@ -68,7 +68,7 @@ export const RENDERVIEW = (function() {
                             <td>${icon('', pet.sterilized)}</td>
                             <td>${(bmi)? (pet.bmi)? pet.bmi : '?' : '?'}</td>
                             <td>${pet.createDate}</td>
-                            <td><button type="button" class='btn btn-danger btn-pet-delete' id='${pet.id}'>delete</button></td>
+                            <td><button type="button" class='btn btn-danger btn-pet-delete' data-id='${pet.id}'>delete</button></td>
                         </tr>
                     `;
                 })
@@ -82,9 +82,6 @@ export const RENDERVIEW = (function() {
             }
 
             viewer[0].innerHTML = template;
-            if(status) {
-                methodDelete(pets);
-            }
         }
     }
 })()

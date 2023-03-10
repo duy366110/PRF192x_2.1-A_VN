@@ -2,7 +2,7 @@
 import { petInfo } from './script/query.js';
 import {VALIDATION} from './script/validation.js';
 import {messageErrors} from './script/data.js';
-import {caculatorBMI, deletePet, savePet, renderPetHealthyView} from './script/executed.js';
+import {savePet, renderPetHealthyView, EXECURED} from './script/executed.js';
 import {RENDERVIEW} from './script/render.js';
 
 /**
@@ -143,16 +143,12 @@ window.onload = function(e) {
                     }
                 ]
             }
-        ], savePet);
+        ]);
 
         return {
             event: {
-                BMI: function() {
-                    caculatorBMI();
-                },
-                sidebar: function() {
-                    
-                },
+                BMI: EXECURED.bmi,
+                REMOVE: EXECURED.remove,
                 renderView: RENDERVIEW.view,
                 renderViewHealthyPet: function() {
                     renderPetHealthyView();
@@ -162,8 +158,8 @@ window.onload = function(e) {
 
     })()
 
-    app.event.sidebar();
-    app.event.renderView(deletePet, false);
+    app.event.renderView(false);
     app.event.renderViewHealthyPet();
     app.event.BMI();
+    app.event.REMOVE();
 }
