@@ -9,11 +9,21 @@
     margin-bottom: 10px;
 }
 
+.silde-bar.active .silde-bar--item {
+    display: block;
+    text-align: center;
+}
+
 .silde-bar .silde-bar--item {
     background-color: transparent;
     border: unset;
-    display: inline-block;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
     padding: 10px;
+    transition: all .2s ease;
+    width: 100%;
 }
 
 .silde-bar ul li:hover, .silde-bar ul li.active {
@@ -25,8 +35,33 @@
     outline: unset;
 }
 
+.silde-bar .silde-bar--item .icon-letter {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.silde-bar.active .silde-bar--item .icon-letter {
+    display: none;
+    transition: all .2s ease;
+}
+
+.silde-bar.active .silde-bar--item .icon-tab {
+    display: block;
+}
+
+.silde-bar .silde-bar--item .icon-tab {
+    display: none;
+    transition: all .2s ease;
+}
+
 .silde-bar .silde-bar--item svg {
     height: 24px;
     stroke: #ffffff;
+    margin-right: .5rem;
     width: 24px;
+}
+
+.silde-bar.active .silde-bar--item svg {
+    margin-bottom: .5rem;
+    margin-right: 0rem;
 }

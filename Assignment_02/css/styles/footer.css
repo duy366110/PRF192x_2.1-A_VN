@@ -3,12 +3,28 @@ footer .silde-bar {
     left: 0px;
     height: 100%;
     position: fixed;
+    transition: all .2s ease;
     top: 0px;
     width: 15rem;
 }
 
-footer .silde-bar.active.active {
-    width: 4.4rem;
+footer .silde-bar.active {
+    width: 6rem;
+}
+
+footer .slide-bar-mask.active {
+    display: none;
+}
+
+footer .slide-bar-mask {
+    background-color: #818181;
+    left: 0;
+    height: 100%;
+    opacity: .5;
+    position: fixed;
+    transition: all .2s ease;
+    top: 0;
+    width: 100%;
 }
 
 @media screen and (min-width: 320px) {

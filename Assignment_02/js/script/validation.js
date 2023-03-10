@@ -1,6 +1,6 @@
 import { EXECURED } from "./executed.js";
-import { messageErrors } from "./data.js";
-import {Store} from './store.js';
+import { MESSAGES } from "./data.js";
+import {STORE} from './utility.js';
 
 let $ = document.querySelector.bind(document);
 
@@ -22,7 +22,7 @@ function VALIDATIONRULE() {
     }
 
     this.num = function(el, message) {
-        message = (message)? message :  messageErrors.number;
+        message = (message)? message :  MESSAGES.ERRORS.number;
 
         if(!Number.isNaN(Number(el.field.value))) {
             this.messageMapper(el.field, this.messageField(el.field.id), '', true);
@@ -39,7 +39,7 @@ function VALIDATIONRULE() {
         let min = Number(el.field.attributes['attr-min'].value);
         let max = Number(el.field.attributes['attr-max'].value);
 
-        message = (message)? message : `${messageErrors.rangeDefault} ${min} and ${max}`;
+        message = (message)? message : `${MESSAGES.ERRORS.rangeDefault} ${min} and ${max}`;
     
         if((value >= min) && (value <= max)) {
             this.messageMapper(el.field, this.messageField(el.field.id), '', true);
@@ -52,7 +52,7 @@ function VALIDATIONRULE() {
     },
 
     this.required  = function(el, message) {
-        message = (message)? message: messageErrors.required;
+        message = (message)? message: MESSAGES.ERRORS.required;
     
         if(el.field.type === 'checkbox') {
             if(el.field.checked) {
@@ -77,10 +77,10 @@ function VALIDATIONRULE() {
     },
 
     this.unique = function(el, message) {
-        message = (message)? message :  messageErrors.uniqueID;
+        message = (message)? message :  MESSAGES.ERRORS.uniqueID;
     
-        if(Store.get('PETS')) {
-            let pets = Store.get('PETS');
+        if(STORE.get('PETS')) {
+            let pets = STORE.get('PETS');
     
             if(pets.length && pets.some(pet => pet.id === el.field.value)) {
                 this.messageMapper(el.field, this.messageField(el.field.id), message, false);
@@ -157,8 +157,7 @@ export const VALIDATION = (() => {
                 }
             })
             if(valid) {
-                // methodSave(form, fields);
-                EXECURED.save(fields);
+                EXECURED.save(form, fields);
             }
         })
     }
