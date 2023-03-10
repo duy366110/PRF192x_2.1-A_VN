@@ -1,8 +1,8 @@
 "use strict";
 import { petInfo } from './script/query.js';
 import {VALIDATION} from './script/validation.js';
-import {messageErrors} from './script/data.js';
-import {savePet, renderPetHealthyView, EXECURED} from './script/executed.js';
+import {MESSAGES} from './script/data.js';
+import {EXECURED} from './script/executed.js';
 import {RENDERVIEW} from './script/render.js';
 
 /**
@@ -11,7 +11,7 @@ import {RENDERVIEW} from './script/render.js';
  * 2) After if validation pass call function save pet.
  * 3) After save pet successfull call function renderPetView
  */
-window.onload = function(e) {
+window.onload = function(event) {
     let app = (function() {
         VALIDATION.validation(petInfo.infor, [
             {
@@ -29,7 +29,7 @@ window.onload = function(e) {
                     },
                     {
                         condition: 'range',
-                        message: messageErrors.age,
+                        message: MESSAGES.ERRORS.age,
                     }
                 ]
             },
@@ -40,7 +40,7 @@ window.onload = function(e) {
                 rules: [
                     {
                         condition: 'required',
-                        message: messageErrors.breed,
+                        message: MESSAGES.ERRORS.breed,
                     }
                 ]
             },
@@ -86,7 +86,7 @@ window.onload = function(e) {
                     },
                     {
                         condition: 'range',
-                        message: messageErrors.length,
+                        message: MESSAGES.ERRORS.length,
                     }
                 ]
             },
@@ -114,7 +114,7 @@ window.onload = function(e) {
                 rules: [
                     {
                         condition: 'required',
-                        message: messageErrors.type,
+                        message: MESSAGES.ERRORS.type,
                     }
                 ]
             },
@@ -139,7 +139,7 @@ window.onload = function(e) {
                     },
                     {
                         condition: 'range',
-                        message: messageErrors.weight,
+                        message: MESSAGES.ERRORS.weight,
                     }
                 ]
             }
@@ -147,19 +147,15 @@ window.onload = function(e) {
 
         return {
             event: {
-                BMI: EXECURED.bmi,
+                ACTION: EXECURED.action,
                 REMOVE: EXECURED.remove,
-                renderView: RENDERVIEW.view,
-                renderViewHealthyPet: function() {
-                    renderPetHealthyView();
-                }
+                VIEW: RENDERVIEW.view,
             }
         }
 
     })()
 
-    app.event.renderView(false);
-    app.event.renderViewHealthyPet();
-    app.event.BMI();
+    app.event.VIEW(false);
+    app.event.ACTION();
     app.event.REMOVE();
 }

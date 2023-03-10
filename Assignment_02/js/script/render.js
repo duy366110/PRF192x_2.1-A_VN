@@ -1,4 +1,4 @@
-import {Store} from './store.js';
+import {STORE} from './utility.js';
 
 export const RENDERVIEW = (function() {
     let icon = function(color, status) {
@@ -34,12 +34,12 @@ export const RENDERVIEW = (function() {
         view: (bmi) => {
             let viewer = $('#tbody');
             let pets = [];
-            let status = (Store.check('PETS') && Store.get('PETS').length)? true : false;
-            let render = (Store.get('RENDER')?.key === 'SH')? Store.get('RENDER') : {key: 'SA'};
+            let status = (STORE.check('PETS') && STORE.get('PETS').length)? true : false;
+            let render = (STORE.get('RENDER')?.key === 'SH')? STORE.get('RENDER') : {key: 'SA'};
             let template = ``;
 
             if(status) {
-                pets = Store.get('PETS');
+                pets = STORE.get('PETS');
                 if(render.key === 'SH') {
                     pets = pets.filter((pet) => {
                         if(pet.vaccinated && pet.dewormed && pet.sterilized) {
