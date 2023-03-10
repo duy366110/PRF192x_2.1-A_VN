@@ -1,0 +1,16 @@
+.form-check-label {
+    margin-left: .5rem;
+    vertical-align: super;
+}
+
+.vaccinated .form-check {
+    margin-right: 2rem;
+}
+
+@media screen and (min-width: 992px) {
+    .vaccinated::before {
+        content: '';
+        display: inline-block;
+        width: 8.3rem;
+    }
+}

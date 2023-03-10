@@ -1,0 +1,15 @@
+thead tr th:first-child {
+    width: 5%;
+}
+
+thead tr th:nth-child(2) {
+    width: calc(100% - 45%);
+}
+
+thead tr th:nth-child(3) {
+    width: 20%;
+}
+
+thead tr th:nth-child(4) {
+    width: 20%;
+}
