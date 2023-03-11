@@ -1,5 +1,7 @@
 import {STORE} from './utility.js';
 
+let $ = document.querySelector.bind(document);
+
 export const RENDERVIEW = (function() {
     let icon = function(color, status) {
         let Template = '';
@@ -81,7 +83,38 @@ export const RENDERVIEW = (function() {
                 `;
             }
 
-            viewer[0].innerHTML = template;
+            viewer.innerHTML = template;
+        },
+        viewBreed: () => {
+            let viewer = $('#tbody');
+            let breeds = [];
+            let template = ``;
+            let status = (STORE.check('BREED') && STORE.get('BREED').length)? true : false;
+
+            if(status) {
+                breeds = STORE.get('BREED');
+
+                breeds.forEach((elm, index) => {
+                    template += `
+                        <tr>
+                            <td>${index}</td>
+                            <td>${elm.breed}</td>
+                            <td>${elm.type}</td>
+                            <td><button class="btn btn-danger">delete</button></td>
+                        </tr>
+                    `;
+                })
+
+
+            } else {
+                template += `
+                    <tr>
+                        <td class='blanb-view' colspan='4'>Nội dung trống</td>
+                    </tr>
+                `;
+            }
+
+            viewer.innerHTML = template;
         }
     }
 })()

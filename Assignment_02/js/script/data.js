@@ -16,7 +16,11 @@ export const RENDER = {
     key: 'SA',
 }
 
-export const PETS = [];
+export function BREEDTYPE(breed, type) {
+    this.breed = breed;
+    this.type = type;
+}
+
 export function PET(age, breed, color, createDate, dewormed, length, id, name, sterilized, type, weight, vaccinated) {
     this.age = age;
     this.bmi = '',

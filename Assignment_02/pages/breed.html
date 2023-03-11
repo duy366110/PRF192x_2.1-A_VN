@@ -22,25 +22,24 @@
         <div class="container-fluid">
             <section class="controller d-flex align-items-center justify-content-center">
                 <div class="controller-pet controller-wrapper">
-                    <form id="info" class="row">
+                    <form id="info" data-storage="BREED" class="row">
                         <div class="form-group form-group-single col-12">
-                          <label class="title w-10" for="pet-id">Pet ID</label>
+                          <label class="title w-10" for="pet-breed">Breed</label>
                           <div class="w-100">
-                            <input type="text" class="form-control" id="pet-id" name="pet-id" placeholder="Input ID"/>
-                            <small id="pet-id-message" class="form-text text-muted"></small>
+                            <input type="text" class="form-control" id="pet-breed" name="pet-breed" placeholder="Input breed"/>
+                            <small id="pet-breed-message" class="form-text text-muted"></small>
                           </div>
                         </div>
 
                         <div class="form-group form-group-single col-12">
-                            <label class="title w-10" for="pet-breed">breed</label>
+                            <label class="title w-10" for="pet-type">Type</label>
                             <div class="w-100">
-                                <select class="form-control double-form-control" id="pet-breed" name="pet-breed">
+                                <select class="form-control" id="pet-type" name="pet-type">
                                     <option value="">Select breed</option>
-                                    <option value="Alaska">Alaska</option>
-                                    <option value="Tabby">Tabby</option>
-                                    <option value="Mixed Breeb">Mixed Breeb</option>
+                                    <option value="Cat">Cat</option>
+                                    <option value="Dog">Dog</option>
                                 </select>
-                                <small id="pet-breed-message" class="form-text text-muted"></small>
+                                <small id="pet-type-message" class="form-text text-muted"></small>
                             </div>
                         </div>
 
@@ -61,7 +60,9 @@
                         <th scope="col">Action</th>
                       </tr>
                     </thead>
-                    <tbody id="tbody"></tbody>
+                    <tbody id="tbody">
+                        <tr><td>Test</td></tr>
+                    </tbody>
                   </table>
             </section>
         </div>

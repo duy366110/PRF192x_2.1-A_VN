@@ -24,8 +24,8 @@ function validField(input) {
                 break;
             }
         }
+        return status;
     }
-    return status;
 }
 
 
@@ -206,12 +206,14 @@ export function validation (form, fields, savePet) {
 
     form.addEventListener('submit', (event) => {
         event.preventDefault();
+        let states = [];
+
         fields.forEach(itemField => {
             if(itemField.rules.length) {
-                valid = validField(itemField);
+                states.push(validField(itemField));
             }
         })
-        if(valid) {
+        if(!(states.some((elm) => elm === false))) {
             savePet(form, fields);
         }
     })
