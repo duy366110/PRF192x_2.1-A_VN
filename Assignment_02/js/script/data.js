@@ -5,6 +5,7 @@ export const MESSAGES = {
         length: 'Length must be between 1 and 100!',
         number: 'Please enter number',
         required: 'Please enter content',
+        uniqueBreed: 'Breed must be unique',
         uniqueID: 'ID must be unique!',
         rangeDefault: 'Value must be between',
         type: 'Please select Type!',

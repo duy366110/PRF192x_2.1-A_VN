@@ -33,6 +33,20 @@ export const RENDERVIEW = (function() {
     }
 
     return {
+        optionBreed: () => {
+            let breed = $('#pet-breed');
+            let template = '<option value="">Select breed</option>';
+
+            if(STORE.check('BREED')) {
+                STORE.get('BREED').forEach((elm) => {
+                    template +=`
+                    <option value="${elm.breed}">${elm.breed}</option>
+                    `;
+                })
+            }
+
+            breed.innerHTML = template;
+        },
         view: (bmi) => {
             let viewer = $('#tbody');
             let pets = [];
@@ -100,7 +114,7 @@ export const RENDERVIEW = (function() {
                             <td>${index}</td>
                             <td>${elm.breed}</td>
                             <td>${elm.type}</td>
-                            <td><button class="btn btn-danger">delete</button></td>
+                            <td><button class="btn btn-danger" data-breed="${elm.breed}">delete</button></td>
                         </tr>
                     `;
                 })
