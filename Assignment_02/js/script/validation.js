@@ -9,6 +9,7 @@ function VALIDATIONRULE() {
         return $(`#${id}-message`);
     }
 
+    //SET MESSAGE TO FIELD
     this.messageMapper = function(input, messageField, message, status) {
         messageField.textContent = message;
         if(status) {
@@ -21,6 +22,8 @@ function VALIDATIONRULE() {
         }
     }
 
+
+    //RULE NUM
     this.num = function(el, message) {
         message = (message)? message :  MESSAGES.ERRORS.number;
 
@@ -34,6 +37,8 @@ function VALIDATIONRULE() {
         }
     },
 
+
+    //RULE RANGE
     this.range = function(el, message) {
         let value = Number(el.field.value);
         let min = Number(el.field.attributes['attr-min'].value);
@@ -51,6 +56,8 @@ function VALIDATIONRULE() {
         }
     },
 
+
+    // RULE REQUIRED
     this.required  = function(el, message) {
         message = (message)? message: MESSAGES.ERRORS.required;
     
@@ -76,6 +83,8 @@ function VALIDATIONRULE() {
         }
     },
 
+
+    //RULUE UNIQUE
     this.unique = function(el, message) {
         message = (message)? message :  MESSAGES.ERRORS.uniqueID;
     
@@ -127,16 +136,16 @@ export const VALIDATION = (() => {
     }
 
     function handleValidField(filed) {
-        let status = true;
+        let status = '';
         if(filed.rules.length > 0) {
             for(let i = 0; i < filed.rules.length; i++) {
                 status = mapperValidation(filed, filed.rules[i]);
                 if(!status) {
-                    break;
+                    return status;
                 }
             }
+            return status;
         }
-        return status;
     }
 
     function handleValidForm(form, fields) {
@@ -151,11 +160,15 @@ export const VALIDATION = (() => {
 
         form.addEventListener('submit', (event) => {
             event.preventDefault();
-            fields.forEach(el => {
-                if(el.rules.length) {
-                    valid = handleValidField(el);
+            for(let el = 0; el < fields.length ; el++) {
+                if(fields[el].rules.length) {
+                    valid = handleValidField(fields[el]);
+                    if(!valid) {
+                        break;
+                    }
                 }
-            })
+            }
+            
             if(valid) {
                 EXECURED.save(form, fields);
             }
