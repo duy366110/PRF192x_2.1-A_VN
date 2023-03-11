@@ -1,4 +1,5 @@
 import {BREEDINFO} from './script/query.js';
+import {MESSAGES} from './script/data.js';
 import {RENDERVIEW} from './script/render.js';
 import {VALIDATION} from './script/validation.js';
 
@@ -12,6 +13,10 @@ window.onload = function(e) {
                 rules: [
                     {
                         condition: 'required',
+                        message: '',
+                    },
+                    {
+                        condition: 'unique',
                         message: '',
                     }
                 ]

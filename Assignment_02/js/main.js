@@ -143,6 +143,7 @@ window.onload = function(event) {
         return {
             event: {
                 ACTION: EXECURED.pageMainAction,
+                OPTION: RENDERVIEW.optionBreed,
                 REMOVE: EXECURED.remove,
                 VIEW: RENDERVIEW.view,
             }
@@ -150,7 +151,8 @@ window.onload = function(event) {
 
     })()
 
-    app.event.VIEW(false);
     app.event.ACTION();
+    app.event.OPTION();
     app.event.REMOVE();
+    app.event.VIEW(false);
 }

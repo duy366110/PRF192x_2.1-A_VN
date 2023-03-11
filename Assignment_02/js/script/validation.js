@@ -11,6 +11,8 @@ function VALIDATIONRULE() {
 
     //SET MESSAGE TO FIELD
     this.messageMapper = function(input, messageField, message, status) {
+        console.log(message);
+
         messageField.textContent = message;
         if(status) {
             input.classList.remove('is-invalid');
@@ -86,13 +88,42 @@ function VALIDATIONRULE() {
 
     //RULUE UNIQUE
     this.unique = function(el, message) {
-        message = (message)? message :  MESSAGES.ERRORS.uniqueID;
+
+        let model = [];
+        let state = false;
+        let type = '';
+
+        switch(el.name) {
+            case 'breed':
+                state = STORE.check('BREED');
+                model = STORE.get('BREED');
+                message = (message)? message :  MESSAGES.ERRORS.uniqueBreed;
+                type = 'BREED';
+                break;
+
+            case 'id':
+            default:
+                state = STORE.check('PETS');
+                model = STORE.get('PETS');
+                message = (message)? message :  MESSAGES.ERRORS.uniqueID;
+                type = 'PETS';
+                break;
+        }
     
-        if(STORE.get('PETS')) {
-            let pets = STORE.get('PETS');
-    
-            if(pets.length && pets.some(pet => pet.id === el.field.value)) {
-                this.messageMapper(el.field, this.messageField(el.field.id), message, false);
+        if(state) {
+
+            state = (type === 'BREED' || type === 'PETS');
+            if(model.length && state) {
+                
+                if(type === 'BREED' && model.some(elm => elm.breed === el.field.value)) {
+                    console.log(message);
+                    this.messageMapper(el.field, this.messageField(el.field.id), message, false);
+                }
+
+                if(type === 'PETS' && model.some(elm => elm.id === el.field.value)) {
+                    this.messageMapper(el.field, this.messageField(el.field.id), message, false);
+                }
+
                 return false;
     
             } else {
@@ -140,6 +171,7 @@ export const VALIDATION = (() => {
         if(filed.rules.length > 0) {
             for(let i = 0; i < filed.rules.length; i++) {
                 status = mapperValidation(filed, filed.rules[i]);
+                console.log(status + ' - ' + filed.rules[i]);
                 if(!status) {
                     break;
                 }
