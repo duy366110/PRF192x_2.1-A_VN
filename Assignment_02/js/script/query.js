@@ -1,7 +1,13 @@
 let $ = document.querySelector.bind(document);
 let $$ = document.querySelectorAll.bind(document);
 
-export const petInfo = {
+export const BREEDINFO = {
+    breed: $('#pet-breed'),
+    infor: $('#info'),
+    type: $('#pet-type'),
+}
+
+export const PETINFO = {
     age: $('#pet-age'),
     breed: $('#pet-breed'),
     color: $('#pet-color'),

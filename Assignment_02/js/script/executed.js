@@ -1,23 +1,48 @@
-import {RENDER, PET, PETS} from './data.js';
+import {BREEDTYPE, RENDER, PET} from './data.js';
 import {DATE, STORE} from './utility.js';
 import {RENDERVIEW} from './render.js';
 
 let $ = document.querySelector.bind(document);
 let $$ = document.querySelectorAll.bind(document);
 
-class METHOD {
-
-    constructor() { }
+const METHOD = {
 
     // Method caculator BMI
-    caculatorBMI() {
+    caculatorBMI: function() {
         $('#caculatorBMI').addEventListener('click', function(event) {
             RENDERVIEW.view(true);
         })
-    }
+    },
+
+    convertInfo: function(fields, destination) {
+        let mapper = fields.map((e) => {
+            let value;
+            if(e.field?.type === 'checkbox') {
+                value = (e.field.checked)? true : false;
+
+            } else {
+                value = e.field?.value;
+            }
+
+            return {
+                name: e.name,
+                value
+            }
+        })
+
+        Object.keys(destination).forEach((key) => {
+            mapper.forEach((e) => {
+                if(e.name === key) {
+                    destination[key] = e.value;
+                }
+            })
+        })
+
+        return destination;
+    },
 
     // Method toggle render all pet and healthy pet
-    renderPetHealthy() {
+    renderPetHealthy: function() {
         let btn = $('#petHealthy');
 
         let render = (STORE.check('RENDER'))? STORE.get('RENDER') : RENDER;
@@ -51,9 +76,9 @@ class METHOD {
                 RENDERVIEW.view(false);
             }
         })
-    }
+    },
 
-    toggleTab() {
+    toggleTab: function() {
         let header = $('#header');
         let main = $('#main');
 
@@ -79,12 +104,10 @@ class METHOD {
 }
 
 export const EXECURED = {
-
-    action: function() {
-        let method = new METHOD();
-        method.caculatorBMI();
-        method.renderPetHealthy();
-        method.toggleTab();
+    pageMainAction: () => {
+        METHOD.caculatorBMI();
+        METHOD.renderPetHealthy();
+        METHOD.toggleTab();
     },
 
     remove: function() {
@@ -101,41 +124,32 @@ export const EXECURED = {
         })
     },
 
-    save: function(form, fields) {
-        let pet = new PET(null, null, null, DATE.currentDate(), null,null, null,null,null,null,null,null);
-    
-        let mapperPet = fields.map((e) => {
-            let value;
-            if(e.field?.type === 'checkbox') {
-                value = (e.field.checked)? true : false;
+    save: (form, fields, storage) => {
+        let model;
+        let olData = [];
 
-            } else {
-                value = e.field?.value;
-            }
+        if(storage === 'BREED') {
+            let breedType = new BREEDTYPE(null, null);
+            model = METHOD.convertInfo(fields, breedType);
 
-            return {
-                name: e.name,
-                value
-            }
-        })
-
-        Object.keys(pet).forEach((key) => {
-            mapperPet.forEach((e) => {
-                if(e.name === key) {
-                    pet[key] = e.value;
-                }
-            })
-        })
-        pet.caculatorBMI();
-
-        if(STORE.check('PETS')) {
-            Object.assign(PETS, STORE.get('PETS'));
         }
-        PETS.push(pet);
 
-        if(STORE.save('PETS', PETS)) {
+        if(storage === 'PETS') {
+            let pet = new PET(null, null, null, DATE.currentDate(), null,null, null,null,null,null,null,null);
+            model = METHOD.convertInfo(fields, pet);
+            model.caculatorBMI();
+        }
+
+        if(STORE.check(storage)) {
+            Object.assign(olData, STORE.get(storage));
+        }
+        olData.push(model);
+
+        if(STORE.save(storage, olData)) {
             form.reset();
-            RENDERVIEW.view(false);
+
+            if(storage === 'BREED') { RENDERVIEW.viewBreed(); }
+            if(storage === 'PETS') { RENDERVIEW.view(false); }
 
         } else {
             alert('save element failed');

@@ -1,21 +1,16 @@
 "use strict";
-import { petInfo } from './script/query.js';
+import {PETINFO} from './script/query.js';
 import {VALIDATION} from './script/validation.js';
 import {MESSAGES} from './script/data.js';
 import {EXECURED} from './script/executed.js';
 import {RENDERVIEW} from './script/render.js';
 
-/**
- * Start run main.
- * 1) Set up validation form information pet.
- * 2) After if validation pass call function save pet.
- * 3) After save pet successfull call function renderPetView
- */
+
 window.onload = function(event) {
     let app = (function() {
-        VALIDATION.validation(petInfo.infor, [
+        VALIDATION.validation(PETINFO.infor, [
             {
-                field: petInfo.age,
+                field: PETINFO.age,
                 name: 'age',
                 type: 'input',
                 rules: [
@@ -34,7 +29,7 @@ window.onload = function(event) {
                 ]
             },
             {
-                field: petInfo.breed,
+                field: PETINFO.breed,
                 name: 'breed',
                 type: 'selector',
                 rules: [
@@ -45,19 +40,19 @@ window.onload = function(event) {
                 ]
             },
             {
-                field: petInfo.color,
+                field: PETINFO.color,
                 name: 'color',
                 type: 'input',
                 rules: []
             },
             {
-                field: petInfo.dewormed,
+                field: PETINFO.dewormed,
                 name: 'dewormed',
                 type: 'checkbox',
                 rules: []
             },
             {
-                field: petInfo.id,
+                field: PETINFO.id,
                 name: 'id',
                 type: 'input',
                 rules: [
@@ -72,7 +67,7 @@ window.onload = function(event) {
                 ]
             },
             {
-                field: petInfo.length,
+                field: PETINFO.length,
                 name: 'length',
                 type: 'input',
                 rules: [
@@ -91,7 +86,7 @@ window.onload = function(event) {
                 ]
             },
             {
-                field: petInfo.name,
+                field: PETINFO.name,
                 name: 'name',
                 type: 'input',
                 rules: [
@@ -102,13 +97,13 @@ window.onload = function(event) {
                 ]
             },
             {
-                field: petInfo.sterilized,
+                field: PETINFO.sterilized,
                 name: 'sterilized',
                 type: 'checkbox',
                 rules: []
             },
             {
-                field: petInfo.type,
+                field: PETINFO.type,
                 name: 'type',
                 type: 'selector',
                 rules: [
@@ -119,13 +114,13 @@ window.onload = function(event) {
                 ]
             },
             {
-                field: petInfo.vaccinated,
+                field: PETINFO.vaccinated,
                 name: 'vaccinated',
                 type: 'checkbox',
                 rules: []
             },
             {
-                field: petInfo.weight,
+                field: PETINFO.weight,
                 name: 'weight',
                 type: 'input',
                 rules: [
@@ -147,7 +142,7 @@ window.onload = function(event) {
 
         return {
             event: {
-                ACTION: EXECURED.action,
+                ACTION: EXECURED.pageMainAction,
                 REMOVE: EXECURED.remove,
                 VIEW: RENDERVIEW.view,
             }

@@ -160,14 +160,15 @@ export const VALIDATION = (() => {
         form.addEventListener('submit', (event) => {
             event.preventDefault();
             let states = [];
-            for(let el = 0; el < fields.length ; el++) {
-                if(fields[el].rules.length) {
-                    states.push(handleValidField(fields[el]));
+
+            fields.forEach(el => {
+                if(el.rules.length) {
+                    states.push(handleValidField(el));
                 }
-            }
+            })
             
             if(!(states.some(state => state === false))) {
-                EXECURED.save(form, fields);
+                EXECURED.save(form, fields, form.dataset.storage);
             }
         })
     }
