@@ -141,15 +141,14 @@ export const VALIDATION = (() => {
             for(let i = 0; i < filed.rules.length; i++) {
                 status = mapperValidation(filed, filed.rules[i]);
                 if(!status) {
-                    return status;
+                    break;
                 }
             }
-            return status;
         }
+        return status;
     }
 
     function handleValidForm(form, fields) {
-        let valid = false;
         fields.forEach(el => {
         if(el.rules.length) {
                 el.field.addEventListener('blur', (event) => {
@@ -160,16 +159,14 @@ export const VALIDATION = (() => {
 
         form.addEventListener('submit', (event) => {
             event.preventDefault();
+            let states = [];
             for(let el = 0; el < fields.length ; el++) {
                 if(fields[el].rules.length) {
-                    valid = handleValidField(fields[el]);
-                    if(!valid) {
-                        break;
-                    }
+                    states.push(handleValidField(fields[el]));
                 }
             }
             
-            if(valid) {
+            if(!(states.some(state => state === false))) {
                 EXECURED.save(form, fields);
             }
         })
