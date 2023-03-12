@@ -1,5 +1,5 @@
 import {BREEDINFO} from './script/query.js';
-import {MESSAGES} from './script/data.js';
+import {EXECURED} from './script/executed.js';
 import {RENDERVIEW} from './script/render.js';
 import {VALIDATION} from './script/validation.js';
 
@@ -36,10 +36,14 @@ window.onload = function(e) {
 
         return {
             event: {
+                ACTION: EXECURED.pageBreedAction,
+                REMOVE: EXECURED.remove,
                 VIEW: RENDERVIEW.viewBreed,
             }
         }
     })()
 
+    app.event.ACTION();
+    app.event.REMOVE();
     app.event.VIEW()
 }

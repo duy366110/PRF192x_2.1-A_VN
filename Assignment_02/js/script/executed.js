@@ -41,7 +41,33 @@ const METHOD = {
         return destination;
     },
 
-    // Method toggle render all pet and healthy pet
+    deleteInfo: function(type, id) {
+        let model = [];
+        let state = false;
+
+        if(type === 'breed') {
+            model = STORE.get('BREED');
+            model.splice(model.findIndex((el) => el.breed === id), 1);
+            state = STORE.save('BREED', model);
+        }
+
+        if(type === 'pet') {
+            model = STORE.get('PETS');
+            model.splice(model.findIndex((el) => el.id === id), 1);
+            state = STORE.save('PETS', model);
+        }
+
+        (state)? window.location.reload() :  alert('Delete element failed');
+    },
+
+    renderBreedByType: function() {
+        let type = $('#pet-type');
+        type.addEventListener('change', function(event) {
+            RENDERVIEW.optionBreed();
+            
+        })
+    },
+
     renderPetHealthy: function() {
         let btn = $('#petHealthy');
 
@@ -104,22 +130,26 @@ const METHOD = {
 }
 
 export const EXECURED = {
-    pageMainAction: () => {
+    pageMainAction: function() {
         METHOD.caculatorBMI();
+        METHOD.renderBreedByType();
         METHOD.renderPetHealthy();
+        METHOD.toggleTab();
+    },
+
+    pageBreedAction: function() {
         METHOD.toggleTab();
     },
 
     remove: function() {
         let viewRoot = $('#tbody');
         viewRoot.addEventListener('click', function(event) {
+            if(event.target.classList.contains('btn-breed-delete')) {
+                METHOD.deleteInfo('breed', event.target.dataset.breed);
+            }
+
             if(event.target.classList.contains('btn-pet-delete')) {
-                let accuracy = confirm('Are you sure?');
-                if(accuracy) {
-                    let pets = STORE.get('PETS');
-                    pets.splice(pets.findIndex((el) => el.id == event.target.dataset.id));
-                    (STORE.save('PETS', pets))? window.location.reload() : alert('Delete element failed');
-                }
+                METHOD.deleteInfo('pet', event.target.dataset.id);
             }
         })
     },
