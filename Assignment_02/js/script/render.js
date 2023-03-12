@@ -35,10 +35,18 @@ export const RENDERVIEW = (function() {
     return {
         optionBreed: () => {
             let breed = $('#pet-breed');
-            let template = '<option value="">Select breed</option>';
+            let breeds = [];
+            let type = $('#pet-type');
+            let template = '<option value="default">Select breed</option>';
 
             if(STORE.check('BREED')) {
-                STORE.get('BREED').forEach((elm) => {
+                breeds = STORE.get('BREED');
+                
+                if(type.value !== 'default') {
+                    breeds = breeds.filter((elm) => elm.type === type.value);
+                }
+
+                breeds.forEach((elm) => {
                     template +=`
                     <option value="${elm.breed}">${elm.breed}</option>
                     `;
@@ -114,7 +122,7 @@ export const RENDERVIEW = (function() {
                             <td>${index}</td>
                             <td>${elm.breed}</td>
                             <td>${elm.type}</td>
-                            <td><button class="btn btn-danger" data-breed="${elm.breed}">delete</button></td>
+                            <td><button class="btn btn-danger btn-breed-delete" data-breed="${elm.breed}">delete</button></td>
                         </tr>
                     `;
                 })

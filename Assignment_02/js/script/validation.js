@@ -11,8 +11,6 @@ function VALIDATIONRULE() {
 
     //SET MESSAGE TO FIELD
     this.messageMapper = function(input, messageField, message, status) {
-        console.log(message);
-
         messageField.textContent = message;
         if(status) {
             input.classList.remove('is-invalid');
@@ -74,7 +72,7 @@ function VALIDATIONRULE() {
             }
     
         } else {
-            if(el.field.value.trim()) {
+            if(el.field.value.trim() && (el.field.value.trim() !== 'default')) {
                 this.messageMapper(el.field, this.messageField(el.field.id), '', true);
                 return true;
         
@@ -111,21 +109,24 @@ function VALIDATIONRULE() {
         }
     
         if(state) {
-
-            state = (type === 'BREED' || type === 'PETS');
-            if(model.length && state) {
+            switch(type) {
+                case 'BREED':
+                    state = model.some(elm => elm.breed === el.field.value);
+                    break
                 
-                if(type === 'BREED' && model.some(elm => elm.breed === el.field.value)) {
-                    console.log(message);
-                    this.messageMapper(el.field, this.messageField(el.field.id), message, false);
-                }
+                case 'PETS':
+                    state = model.some(elm => elm.id === el.field.value);
+                    break
+                
+                default:
+                    state = false;
+                    break
+            }
 
-                if(type === 'PETS' && model.some(elm => elm.id === el.field.value)) {
-                    this.messageMapper(el.field, this.messageField(el.field.id), message, false);
-                }
-
+            if(state) {
+                this.messageMapper(el.field, this.messageField(el.field.id), message, false);
                 return false;
-    
+
             } else {
                 this.messageMapper(el.field, this.messageField(el.field.id), '', true);
                 return true;
@@ -171,7 +172,6 @@ export const VALIDATION = (() => {
         if(filed.rules.length > 0) {
             for(let i = 0; i < filed.rules.length; i++) {
                 status = mapperValidation(filed, filed.rules[i]);
-                console.log(status + ' - ' + filed.rules[i]);
                 if(!status) {
                     break;
                 }
