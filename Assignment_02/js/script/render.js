@@ -55,12 +55,13 @@ export const RENDERVIEW = (function() {
 
             breed.innerHTML = template;
         },
-        view: (bmi) => {
+        view: (bmi, viewType) => {
             let viewer = $('#tbody');
             let pets = [];
             let status = (STORE.check('PETS') && STORE.get('PETS').length)? true : false;
             let render = (STORE.get('RENDER')?.key === 'SH')? STORE.get('RENDER') : {key: 'SA'};
             let template = ``;
+            // let templateBtn = (viewType === 'main')? `` : ``;
 
             if(status) {
                 pets = STORE.get('PETS');
@@ -77,6 +78,14 @@ export const RENDERVIEW = (function() {
 
             if(status) {
                 pets.forEach(pet => {
+                    let templateBtn = ``;
+                    if(viewType === 'main') {
+                        templateBtn = `<button type="button" class='btn btn-danger btn-pet-delete' data-id='${pet.id}'>delete</button>`;
+
+                    } else {
+                        templateBtn = `<button type="button" class='btn btn-warning btn-pet-edit' data-id='${pet.id}'>edit</button>`;
+                    }
+
                     template += `
                         <tr>
                             <td>${pet.id}</td>
@@ -92,7 +101,7 @@ export const RENDERVIEW = (function() {
                             <td>${icon('', pet.sterilized)}</td>
                             <td>${(bmi)? (pet.bmi)? pet.bmi : '?' : '?'}</td>
                             <td>${pet.createDate}</td>
-                            <td><button type="button" class='btn btn-danger btn-pet-delete' data-id='${pet.id}'>delete</button></td>
+                            <td>${templateBtn}</td>
                         </tr>
                     `;
                 })

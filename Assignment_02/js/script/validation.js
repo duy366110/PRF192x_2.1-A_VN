@@ -180,7 +180,7 @@ export const VALIDATION = (() => {
         return status;
     }
 
-    function handleValidForm(form, fields) {
+    function handleValidForm(form, fields, methodType) {
         fields.forEach(el => {
         if(el.rules.length) {
                 el.field.addEventListener('blur', (event) => {
@@ -200,7 +200,12 @@ export const VALIDATION = (() => {
             })
             
             if(!(states.some(state => state === false))) {
-                EXECURED.save(form, fields, form.dataset.storage);
+                if(methodType === 'save') {
+                    EXECURED.save(form, fields, form.dataset.storage);
+
+                } else {
+                    console.log('Bạn thực hiện chỉnh sửa thông tin');
+                }
             }
         })
     }

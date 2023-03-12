@@ -32,7 +32,7 @@ window.onload = function(e) {
                     }
                 ]
             }
-        ]);
+        ], 'save');
 
         return {
             event: {

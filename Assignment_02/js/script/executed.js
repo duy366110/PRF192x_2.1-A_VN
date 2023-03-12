@@ -6,11 +6,13 @@ let $ = document.querySelector.bind(document);
 let $$ = document.querySelectorAll.bind(document);
 
 const METHOD = {
+    binDataToView: function(fields, id) {
 
-    // Method caculator BMI
+    },
+
     caculatorBMI: function() {
         $('#caculatorBMI').addEventListener('click', function(event) {
-            RENDERVIEW.view(true);
+            RENDERVIEW.view(true, 'main');
         })
     },
 
@@ -99,7 +101,7 @@ const METHOD = {
             }
 
             if(STORE.save('RENDER', RENDER)) {
-                RENDERVIEW.view(false);
+                RENDERVIEW.view(false, 'main');
             }
         })
     },
@@ -141,6 +143,20 @@ export const EXECURED = {
         METHOD.toggleTab();
     },
 
+    pageEditAction: function() {
+        METHOD.renderBreedByType();
+        METHOD.toggleTab();
+    },
+
+    edit: function(fields) {
+        let viewRoot = $('#tbody');
+        viewRoot.addEventListener('click', function(event) {
+            if(event.target.classList.contains('btn-pet-edit')) {
+                METHOD.binDataToView(fields, event.target.dataset.id);
+            }
+        })
+    },
+
     remove: function() {
         let viewRoot = $('#tbody');
         viewRoot.addEventListener('click', function(event) {
@@ -179,7 +195,7 @@ export const EXECURED = {
             form.reset();
 
             if(storage === 'BREED') { RENDERVIEW.viewBreed(); }
-            if(storage === 'PETS') { RENDERVIEW.view(false); }
+            if(storage === 'PETS') { RENDERVIEW.view(false, 'main'); }
 
         } else {
             alert('save element failed');

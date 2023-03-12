@@ -138,7 +138,7 @@ window.onload = function(event) {
                     }
                 ]
             }
-        ]);
+        ], 'save');
 
         return {
             event: {
@@ -154,5 +154,5 @@ window.onload = function(event) {
     app.event.ACTION();
     app.event.OPTION();
     app.event.REMOVE();
-    app.event.VIEW(false);
+    app.event.VIEW(false, 'main');
 }
