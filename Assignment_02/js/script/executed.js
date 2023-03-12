@@ -6,18 +6,24 @@ let $ = document.querySelector.bind(document);
 let $$ = document.querySelectorAll.bind(document);
 
 const METHOD = {
-    binDataToView: function(fields, id) {
-        let pet = {};
-        Object.assign(pet, ...STORE.get('PETS').filter((elm) => elm.id === id));
+    binDataToView: function(fields) {
 
-        fields.forEach((elm) => {
-            if(elm.field.type === 'checkbox') {
-                elm.field.checked = (pet[elm.name])? true : false;
+        let viewRoot = $('#tbody');
+        viewRoot.addEventListener('click', function(event) {
+            if(event.target.classList.contains('btn-pet-edit')) {
+                let pet = {};
+                Object.assign(pet, ...STORE.get('PETS').filter((elm) => elm.id === event.target.dataset.id));
+
+                fields.forEach((elm) => {
+                    if(elm.field.type === 'checkbox') {
+                        elm.field.checked = (pet[elm.name])? true : false;
+                    }
+                    elm.field.value = pet[elm.name];
+                })
+
+                RENDERVIEW.updateBreed(pet.breed);
             }
-            elm.field.value = pet[elm.name];
         })
-
-        RENDERVIEW.updateBreed(pet.breed);
     },
 
     caculatorBMI: function() {
@@ -152,19 +158,13 @@ export const EXECURED = {
         METHOD.toggleTab();
     },
 
-    pageEditAction: function() {
+    pageEditAction: function(fields) {
+        METHOD.binDataToView(fields);
         METHOD.renderBreedByType();
         METHOD.toggleTab();
     },
 
-    edit: function(fields) {
-        let viewRoot = $('#tbody');
-        viewRoot.addEventListener('click', function(event) {
-            if(event.target.classList.contains('btn-pet-edit')) {
-                METHOD.binDataToView(fields, event.target.dataset.id);
-            }
-        })
-    },
+    edit: function() { },
 
     remove: function() {
         let viewRoot = $('#tbody');
