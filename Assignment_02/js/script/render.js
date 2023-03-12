@@ -55,13 +55,19 @@ export const RENDERVIEW = (function() {
 
             breed.innerHTML = template;
         },
+
+        updateBreed: function(value) {
+            this.optionBreed();
+            let breed = $('#pet-breed');
+            breed.value = value;
+        },
+
         view: (bmi, viewType) => {
             let viewer = $('#tbody');
             let pets = [];
             let status = (STORE.check('PETS') && STORE.get('PETS').length)? true : false;
             let render = (STORE.get('RENDER')?.key === 'SH')? STORE.get('RENDER') : {key: 'SA'};
             let template = ``;
-            // let templateBtn = (viewType === 'main')? `` : ``;
 
             if(status) {
                 pets = STORE.get('PETS');
@@ -116,6 +122,7 @@ export const RENDERVIEW = (function() {
 
             viewer.innerHTML = template;
         },
+
         viewBreed: () => {
             let viewer = $('#tbody');
             let breeds = [];

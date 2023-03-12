@@ -7,7 +7,17 @@ let $$ = document.querySelectorAll.bind(document);
 
 const METHOD = {
     binDataToView: function(fields, id) {
+        let pet = {};
+        Object.assign(pet, ...STORE.get('PETS').filter((elm) => elm.id === id));
 
+        fields.forEach((elm) => {
+            if(elm.field.type === 'checkbox') {
+                elm.field.checked = (pet[elm.name])? true : false;
+            }
+            elm.field.value = pet[elm.name];
+        })
+
+        RENDERVIEW.updateBreed(pet.breed);
     },
 
     caculatorBMI: function() {
@@ -66,7 +76,6 @@ const METHOD = {
         let type = $('#pet-type');
         type.addEventListener('change', function(event) {
             RENDERVIEW.optionBreed();
-            
         })
     },
 
