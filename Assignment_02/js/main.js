@@ -8,7 +8,7 @@ import {RENDERVIEW} from './script/render.js';
 
 window.onload = function(event) {
     let app = (function() {
-        VALIDATION.validation(PETINFO.infor, [
+        let fields = [
             {
                 field: PETINFO.age,
                 name: 'age',
@@ -138,7 +138,9 @@ window.onload = function(event) {
                     }
                 ]
             }
-        ], 'save');
+        ];
+
+        VALIDATION.validation(PETINFO.infor, fields, 'save');
 
         return {
             event: {
