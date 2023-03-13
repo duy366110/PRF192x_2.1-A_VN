@@ -78,6 +78,47 @@ const METHOD = {
         (state)? window.location.reload() :  alert('Delete element failed');
     },
 
+
+
+    findByCondition: function(fields) {
+        let condition = {};
+
+        fields.forEach((elm) => {
+            if(elm.name !== 'type') {
+                switch(elm.type) {
+                    case 'selector':
+                        elm.field.addEventListener('change', function(event) {
+                            condition[elm.name] = this.value;
+                            RENDERVIEW.viewFind(true, condition);
+                        })
+                        break
+
+                    case 'checkbox':
+                        elm.field.addEventListener('change', function() {
+                            condition[elm.name] = this.checked;
+                            RENDERVIEW.viewFind(true, condition);
+                        })
+                        break
+
+                    case 'input':
+                    default:
+                        elm.field.addEventListener('keyup', function(event) {
+                            condition[elm.name] = this.value;
+                            RENDERVIEW.viewFind(true, condition);
+                        })
+                        break
+                }
+            }
+        })
+        
+    },
+
+    findSetCondition: function(key, value) {
+        const condition = {};
+        condition[key] = value;
+        return 
+    },
+
     renderBreedByType: function() {
         let type = $('#pet-type');
         type.addEventListener('change', function(event) {
@@ -162,6 +203,11 @@ export const EXECURED = {
         METHOD.binDataToView(fields);
         METHOD.renderBreedByType();
         METHOD.toggleTab();
+    },
+
+    pageFindAcion: function(fields) {
+        METHOD.renderBreedByType();
+        METHOD.findByCondition(fields);
     },
 
     edit: function(form, fields) {
