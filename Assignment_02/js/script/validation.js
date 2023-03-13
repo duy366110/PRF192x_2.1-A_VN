@@ -5,11 +5,25 @@ import {STORE} from './utility.js';
 let $ = document.querySelector.bind(document);
 
 function VALIDATIONRULE() {
+
+    /**
+     * 
+     * @param {*} id element message after field input.
+     * @returns element<HTML> message.
+     */
     this.messageField = function(id) {
         return $(`#${id}-message`);
     }
 
-    //SET MESSAGE TO FIELD
+    
+
+    /**
+     * 
+     * @param {*} input element input on template.
+     * @param {*} messageField element message of field input.
+     * @param {*} message content of element messageField.
+     * @param {*} status status validation input.
+     */
     this.messageMapper = function(input, messageField, message, status) {
         messageField.textContent = message;
         if(status) {
@@ -23,7 +37,13 @@ function VALIDATIONRULE() {
     }
 
 
-    //RULE NUM
+    
+    /**
+     * 
+     * @param {*} el 
+     * @param {*} message 
+     * @returns 
+     */
     this.num = function(el, message) {
         message = (message)? message :  MESSAGES.ERRORS.number;
 
@@ -38,7 +58,13 @@ function VALIDATIONRULE() {
     },
 
 
-    //RULE RANGE
+    
+    /**
+     * 
+     * @param {*} el 
+     * @param {*} message 
+     * @returns 
+     */
     this.range = function(el, message) {
         let value = Number(el.field.value);
         let min = Number(el.field.attributes['attr-min'].value);
@@ -143,6 +169,13 @@ function VALIDATIONRULE() {
 export const VALIDATION = (() => {
     let validationRule = new VALIDATIONRULE();
 
+    /**
+     * 
+     * Method mapper message of filed on template.
+     * @param {*} field single field enter value.
+     * @param {*} rule validation of field.
+     * @returns return status validation field passed = true or failed = false.
+     */
     function mapperValidation(field, rule) {
         let status = true;
         switch(rule.condition) {
@@ -167,6 +200,13 @@ export const VALIDATION = (() => {
         return status;
     }
 
+
+    /**
+     * 
+     * Method validation single field.
+     * @param {*} filed single field enter value.
+     * @returns status validation field passed = true or failed = false.
+     */
     function handleValidField(filed) {
         let status = '';
         if(filed.rules.length > 0) {
@@ -180,6 +220,14 @@ export const VALIDATION = (() => {
         return status;
     }
 
+
+    /**
+     * 
+     * Method main execution validation.
+     * @param {*} form form need validation.
+     * @param {*} fields multiple fileds (input, select, checkbox, radiobutton, ...).
+     * @param {*} methodType type method you want execution (save, edit or find).
+     */
     function handleValidForm(form, fields, methodType) {
         fields.forEach(el => {
         if(el.rules.length) {

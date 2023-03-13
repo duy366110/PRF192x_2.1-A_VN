@@ -83,7 +83,6 @@ export const RENDERVIEW = (function() {
             }
 
             if(status) {
-                console.log(pets);
                 pets.forEach(pet => {
                     let templateBtn = ``;
                     if(viewType === 'main') {
