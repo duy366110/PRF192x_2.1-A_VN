@@ -204,7 +204,7 @@ export const VALIDATION = (() => {
                     EXECURED.save(form, fields, form.dataset.storage);
 
                 } else {
-                    console.log('Bạn thực hiện chỉnh sửa thông tin');
+                    EXECURED.edit(form, fields);
                 }
             }
         })

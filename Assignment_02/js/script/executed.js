@@ -164,7 +164,38 @@ export const EXECURED = {
         METHOD.toggleTab();
     },
 
-    edit: function() { },
+    edit: function(form, fields) {
+        let model;
+        let pets = [];
+        let pet = new PET(null, null, null, '', null,null, null,null,null,null,null,null);
+        model = METHOD.convertInfo(fields, pet);
+        
+        if(model.id && STORE.check('PETS') && STORE.get('PETS').some((elm) => elm.id === model.id)) {
+            model.createDate = STORE.get('PETS').filter((elm) => elm.id === model.id)[0].createDate;
+            model.caculatorBMI();
+
+            pets = STORE.get('PETS');
+            pets = pets.map((elm) => {
+                if(elm.id === model.id) {
+                    Object.assign(elm, model);
+                }
+                return elm;
+            })
+
+            if(STORE.save('PETS', pets)) {
+                form.reset();
+                RENDERVIEW.view(false, 'main');
+    
+            } else {
+                alert('edit element failed');
+            }
+            
+        } else {
+            alert('edit element failed');
+        }
+
+
+    },
 
     remove: function() {
         let viewRoot = $('#tbody');

@@ -59,10 +59,6 @@ window.onload = function(event) {
                     {
                         condition: 'required',
                         message: '',
-                    },
-                    {
-                        condition: 'unique',
-                        message: '',
                     }
                 ]
             },
