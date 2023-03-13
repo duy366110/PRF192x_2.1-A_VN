@@ -111,13 +111,8 @@ export const RENDERVIEW = (function() {
                         </tr>
                     `;
                 })
-                
             } else {
-                template += `
-                    <tr>
-                        <td class='blanb-view' colspan='14'>Nội dung trống</td>
-                    </tr>
-                `;
+                template += `<tr><td class='blanb-view' colspan='14'>Nội dung trống</td></tr>`;
             }
 
             viewer.innerHTML = template;
@@ -143,16 +138,71 @@ export const RENDERVIEW = (function() {
                     `;
                 })
 
-
             } else {
-                template += `
-                    <tr>
-                        <td class='blanb-view' colspan='4'>Nội dung trống</td>
-                    </tr>
-                `;
+                template += `<tr><td class='blanb-view' colspan='14'>Nội dung trống</td></tr>`;
             }
 
             viewer.innerHTML = template;
-        }
+        },
+
+         viewFind: (status, condition = {}) => {
+            let viewer = $('#tbody');
+            let template = ``;
+
+            if(!status || !STORE.check('PETS') || !STORE.get('PETS').length) {
+                template += `<tr><td class='blanb-view' colspan='14'>Nội dung trống</td></tr>`;
+            } else {
+                console.log(condition);
+                let pets = STORE.get('PETS');
+                Object.keys(condition).forEach((key) => {
+                    pets = pets.filter((elm) =>{
+                        // elm[key].includes(condition[key])
+                        if((typeof (elm[key]) === 'boolean') && (elm[key] === condition[key])) {
+                            return elm;
+                        }
+
+                        if((typeof (elm[key]) !== 'boolean') && (elm[key].includes(condition[key]))) {
+                            return elm;
+                        }
+                    });
+                })
+
+                console.log(pets);
+
+            }
+
+            // if(!status) {
+            //     template += `<tr><td class='blanb-view' colspan='14'>Nội dung trống</td></tr>`;
+
+            // } else {
+            //     if(STORE.check('PETS')) {
+            //         let pets = STORE.get('PETS').filter((elm) => (elm.id.includes(condition['pet-id']) || elm.id.includes(condition['pet-name'])))
+            //         pets.forEach(pet => {
+            //             template += `
+            //                 <tr>
+            //                     <td>${pet.id}</td>
+            //                     <td>${pet.name}</td>
+            //                     <td>${pet.age}</td>
+            //                     <td>${pet.type}</td>
+            //                     <td>${pet.weight} kg</td>
+            //                     <td>${pet.length} cm</td>
+            //                     <td>${pet.breed}</td>
+            //                     <td>${icon(pet.color, false)}</td>
+            //                     <td>${icon('', pet.vaccinated)}</td>
+            //                     <td>${icon('', pet.dewormed)}</td>
+            //                     <td>${icon('', pet.sterilized)}</td>
+            //                     <td>?</td>
+            //                     <td>${pet.createDate}</td>
+            //                 </tr>
+            //             `;
+            //         })
+
+            //     } else {
+            //         template += `<tr><td class='blanb-view' colspan='14'>Nội dung trống</td></tr>`;
+            //     }
+            // }
+
+            viewer.innerHTML = template;
+         }
     }
 })()

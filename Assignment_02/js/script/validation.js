@@ -200,11 +200,19 @@ export const VALIDATION = (() => {
             })
             
             if(!(states.some(state => state === false))) {
-                if(methodType === 'save') {
-                    EXECURED.save(form, fields, form.dataset.storage);
+                switch(methodType) {
+                    case 'edit':
+                        EXECURED.edit(form, fields);
+                        break
 
-                } else {
-                    EXECURED.edit(form, fields);
+                    case 'find':
+                        console.log('bạn thực hiên tìm kiếm phần tử mong muốn');
+                        break
+
+                    case 'save':
+                    default:
+                        EXECURED.save(form, fields, form.dataset.storage);
+                        break
                 }
             }
         })
