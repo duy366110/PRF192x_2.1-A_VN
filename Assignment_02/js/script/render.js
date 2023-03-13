@@ -156,7 +156,6 @@ export const RENDERVIEW = (function() {
                 let pets = STORE.get('PETS');
                 Object.keys(condition).forEach((key) => {
                     pets = pets.filter((elm) =>{
-                        // elm[key].includes(condition[key])
                         if((typeof (elm[key]) === 'boolean') && (elm[key] === condition[key])) {
                             return elm;
                         }
@@ -167,40 +166,32 @@ export const RENDERVIEW = (function() {
                     });
                 })
 
-                console.log(pets);
+                if(pets.length) {
+                    pets.forEach(pet => {
+                        template += `
+                            <tr>
+                                <td>${pet.id}</td>
+                                <td>${pet.name}</td>
+                                <td>${pet.age}</td>
+                                <td>${pet.type}</td>
+                                <td>${pet.weight} kg</td>
+                                <td>${pet.length} cm</td>
+                                <td>${pet.breed}</td>
+                                <td>${icon(pet.color, false)}</td>
+                                <td>${icon('', pet.vaccinated)}</td>
+                                <td>${icon('', pet.dewormed)}</td>
+                                <td>${icon('', pet.sterilized)}</td>
+                                <td>?</td>
+                                <td>${pet.createDate}</td>
+                            </tr>
+                        `;
+                    })
+
+                } else {
+                    template += `<tr><td class='blanb-view' colspan='14'>Nội dung trống</td></tr>`;
+                }
 
             }
-
-            // if(!status) {
-            //     template += `<tr><td class='blanb-view' colspan='14'>Nội dung trống</td></tr>`;
-
-            // } else {
-            //     if(STORE.check('PETS')) {
-            //         let pets = STORE.get('PETS').filter((elm) => (elm.id.includes(condition['pet-id']) || elm.id.includes(condition['pet-name'])))
-            //         pets.forEach(pet => {
-            //             template += `
-            //                 <tr>
-            //                     <td>${pet.id}</td>
-            //                     <td>${pet.name}</td>
-            //                     <td>${pet.age}</td>
-            //                     <td>${pet.type}</td>
-            //                     <td>${pet.weight} kg</td>
-            //                     <td>${pet.length} cm</td>
-            //                     <td>${pet.breed}</td>
-            //                     <td>${icon(pet.color, false)}</td>
-            //                     <td>${icon('', pet.vaccinated)}</td>
-            //                     <td>${icon('', pet.dewormed)}</td>
-            //                     <td>${icon('', pet.sterilized)}</td>
-            //                     <td>?</td>
-            //                     <td>${pet.createDate}</td>
-            //                 </tr>
-            //             `;
-            //         })
-
-            //     } else {
-            //         template += `<tr><td class='blanb-view' colspan='14'>Nội dung trống</td></tr>`;
-            //     }
-            // }
 
             viewer.innerHTML = template;
          }
