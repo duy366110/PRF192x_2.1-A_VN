@@ -84,30 +84,28 @@ const METHOD = {
         let condition = {};
 
         fields.forEach((elm) => {
-            if(elm.name !== 'type') {
-                switch(elm.type) {
-                    case 'selector':
-                        elm.field.addEventListener('change', function(event) {
-                            condition[elm.name] = this.value;
-                            RENDERVIEW.viewFind(true, condition);
-                        })
-                        break
+            switch(elm.type) {
+                case 'selector':
+                    elm.field.addEventListener('change', function(event) {
+                        condition[elm.name] = this.value;
+                        RENDERVIEW.viewFind(true, condition);
+                    })
+                    break
 
-                    case 'checkbox':
-                        elm.field.addEventListener('change', function() {
-                            condition[elm.name] = this.checked;
-                            RENDERVIEW.viewFind(true, condition);
-                        })
-                        break
+                case 'checkbox':
+                    elm.field.addEventListener('change', function() {
+                        condition[elm.name] = this.checked;
+                        RENDERVIEW.viewFind(true, condition);
+                    })
+                    break
 
-                    case 'input':
-                    default:
-                        elm.field.addEventListener('keyup', function(event) {
-                            condition[elm.name] = this.value;
-                            RENDERVIEW.viewFind(true, condition);
-                        })
-                        break
-                }
+                case 'input':
+                default:
+                    elm.field.addEventListener('keyup', function(event) {
+                        condition[elm.name] = this.value;
+                        RENDERVIEW.viewFind(true, condition);
+                    })
+                    break
             }
         })
         
@@ -208,6 +206,7 @@ export const EXECURED = {
     pageFindAcion: function(fields) {
         METHOD.renderBreedByType();
         METHOD.findByCondition(fields);
+        METHOD.toggleTab();
     },
 
     edit: function(form, fields) {
@@ -241,6 +240,17 @@ export const EXECURED = {
         }
 
 
+    },
+
+    find: function(fields) {
+        let condition = {};
+        fields.forEach((elm) => {
+            if(elm.type === 'checkbox') {
+                condition[elm.name] = elm.field.checked;
+            }
+            condition[elm.name ] = elm.field.value;
+        })
+        RENDERVIEW.viewFind(true, condition);
     },
 
     remove: function() {

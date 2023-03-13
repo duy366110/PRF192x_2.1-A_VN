@@ -83,13 +83,14 @@ export const RENDERVIEW = (function() {
             }
 
             if(status) {
+                console.log(pets);
                 pets.forEach(pet => {
                     let templateBtn = ``;
                     if(viewType === 'main') {
-                        templateBtn = `<button type="button" class='btn btn-danger btn-pet-delete' data-id='${pet.id}'>delete</button>`;
+                        templateBtn = `<button type="button" class='btn btn-danger btn-action btn-pet-delete' data-id='${pet.id}'>delete</button>`;
 
                     } else {
-                        templateBtn = `<button type="button" class='btn btn-warning btn-pet-edit' data-id='${pet.id}'>edit</button>`;
+                        templateBtn = `<button type="button" class='btn btn-warning btn-action btn-pet-edit' data-id='${pet.id}'>edit</button>`;
                     }
 
                     template += `
@@ -133,7 +134,7 @@ export const RENDERVIEW = (function() {
                             <td>${index}</td>
                             <td>${elm.breed}</td>
                             <td>${elm.type}</td>
-                            <td><button class="btn btn-danger btn-breed-delete" data-breed="${elm.breed}">delete</button></td>
+                            <td><button class="btn btn-danger btn-action btn-breed-delete" data-breed="${elm.breed}">delete</button></td>
                         </tr>
                     `;
                 })
@@ -160,8 +161,10 @@ export const RENDERVIEW = (function() {
                             return elm;
                         }
 
-                        if((typeof (elm[key]) !== 'boolean') && (elm[key].includes(condition[key]))) {
-                            return elm;
+                        if((typeof (elm[key]) !== 'boolean')) {
+                            if((condition[key] === 'default') || (elm[key].includes(condition[key])) ) {
+                                return elm;
+                            }
                         }
                     });
                 })

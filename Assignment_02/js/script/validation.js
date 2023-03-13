@@ -206,7 +206,7 @@ export const VALIDATION = (() => {
                         break
 
                     case 'find':
-                        console.log('bạn thực hiên tìm kiếm phần tử mong muốn');
+                        EXECURED.find(fields);
                         break
 
                     case 'save':

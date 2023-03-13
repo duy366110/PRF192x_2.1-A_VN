@@ -13,12 +13,7 @@ window.onload = function(event) {
                 field: PETINFO.breed,
                 name: 'breed',
                 type: 'selector',
-                rules: [
-                    {
-                        condition: 'required',
-                        message: MESSAGES.ERRORS.breed,
-                    }
-                ]
+                rules: []
             },
             {
                 field: PETINFO.dewormed,
@@ -30,23 +25,13 @@ window.onload = function(event) {
                 field: PETINFO.id,
                 name: 'id',
                 type: 'input',
-                rules: [
-                    {
-                        condition: 'required',
-                        message: '',
-                    }
-                ]
+                rules: []
             },
             {
                 field: PETINFO.name,
                 name: 'name',
                 type: 'input',
-                rules: [
-                    {
-                        condition: 'required',
-                        message: '',
-                    }
-                ]
+                rules: []
             },
             {
                 field: PETINFO.sterilized,
@@ -58,12 +43,7 @@ window.onload = function(event) {
                 field: PETINFO.type,
                 name: 'type',
                 type: 'selector',
-                rules: [
-                    {
-                        condition: 'required',
-                        message: MESSAGES.ERRORS.type,
-                    }
-                ]
+                rules: []
             },
             {
                 field: PETINFO.vaccinated,
