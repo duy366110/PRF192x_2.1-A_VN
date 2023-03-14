@@ -58,7 +58,7 @@ window.onload = function(event) {
         return {
             event: {
                 ACTION: EXECURED.pageFindAcion(fields),
-                OPTION: RENDERVIEW.optionBreed,
+                OPTION: RENDERVIEW.optionBreed(''),
                 VIEW: RENDERVIEW.viewFind,
             }
         }
@@ -66,6 +66,6 @@ window.onload = function(event) {
     })()
 
     app.event.ACTION;
-    app.event.OPTION();
+    app.event.OPTION;
     app.event.VIEW(false);
 }

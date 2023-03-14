@@ -40,9 +40,10 @@ function VALIDATIONRULE() {
     
     /**
      * 
-     * @param {*} el 
-     * @param {*} message 
-     * @returns 
+     * Method validation value input equal number.
+     * @param {*} el field input on template need validation.
+     * @param {*} message content binding to template.
+     * @returns status validation passed = true or failed = false.
      */
     this.num = function(el, message) {
         message = (message)? message :  MESSAGES.ERRORS.number;
@@ -59,11 +60,13 @@ function VALIDATIONRULE() {
 
 
     
+
     /**
      * 
-     * @param {*} el 
-     * @param {*} message 
-     * @returns 
+     * Method validation value between min and max value.
+     * @param {*} el field input on template need validation.
+     * @param {*} message content binding to template.
+     * @returns status validation passed = true or failed = false.
      */
     this.range = function(el, message) {
         let value = Number(el.field.value);
@@ -83,7 +86,14 @@ function VALIDATIONRULE() {
     },
 
 
-    // RULE REQUIRED
+    
+    /**
+     * 
+     * Method validation value required input not empty value.
+     * @param {*} el field input on template need validation.
+     * @param {*} message content binding to template.
+     * @returns status validation passed = true or failed = false.
+     */
     this.required  = function(el, message) {
         message = (message)? message: MESSAGES.ERRORS.required;
     
@@ -110,7 +120,14 @@ function VALIDATIONRULE() {
     },
 
 
-    //RULUE UNIQUE
+    
+    /**
+     * 
+     * Method validation value input need quine value.
+     * @param {*} el field input on template need validation.
+     * @param {*} message content binding to template.
+     * @returns status validation passed = true or failed = false.
+     */
     this.unique = function(el, message) {
 
         let model = [];
