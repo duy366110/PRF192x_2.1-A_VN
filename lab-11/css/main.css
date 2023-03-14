@@ -1,0 +1,26 @@
+* {
+    font-family: 'Roboto', sans-serif;
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: hsl(144, 49%, 53%);
+    height: 100vh;
+    position: relative;
+    width: 100%;
+}
+
+.wrapper {
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+}
+
+.btn {
+    font-size: 20px;
+    padding: 5px 15px;
+}
+
