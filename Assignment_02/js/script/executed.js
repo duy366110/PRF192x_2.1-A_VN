@@ -340,6 +340,10 @@ export const EXECURED = {
     },
 
 
+    /**
+     * 
+     * Method export pet data to file .json.
+     */
     export: function() {
         let status = (STORE.check('PETS') && STORE.get('PETS').length); 
 
@@ -374,6 +378,17 @@ export const EXECURED = {
             }
         })
         RENDERVIEW.viewFind(true, condition);
+    },
+
+
+
+
+    import: function(importFile) {
+        let fr = new FileReader();
+        fr.readAsText(importFile.files[0]);
+        fr.onload = function() {
+            console.log(fr.result);
+        }
     },
 
 
