@@ -119,7 +119,7 @@ export const RENDERVIEW = (function() {
                             <td>${pet.weight} kg</td>
                             <td>${pet.length} cm</td>
                             <td>${pet.breed}</td>
-                            <td>${icon(pet.color, false)}</td>
+                            <td>${icon((pet.color)? pet.color: '#000000', false)}</td>
                             <td>${icon('', pet.vaccinated)}</td>
                             <td>${icon('', pet.dewormed)}</td>
                             <td>${icon('', pet.sterilized)}</td>
@@ -197,14 +197,16 @@ export const RENDERVIEW = (function() {
                 if(Object.keys(condition).length) {
                     Object.keys(condition).forEach((key) => {
                         pets = pets.filter((elm) => {
-                            if((typeof (elm[key]) === 'boolean')) {
-                                if(elm[key] === condition[key]) {
-                                    return elm;
-                                }
-
-                            } else {
-                                if((elm[key].includes(condition[key])) ) {
-                                    return elm;
+                            if((elm[key] !== null) || (elm[key] !== undefined) ) {
+                                if((typeof (elm[key]) === 'boolean')) {
+                                    if(elm[key] === condition[key]) {
+                                        return elm;
+                                    }
+    
+                                } else {
+                                    if((elm[key].includes(condition[key])) ) {
+                                        return elm;
+                                    }
                                 }
                             }
                         })

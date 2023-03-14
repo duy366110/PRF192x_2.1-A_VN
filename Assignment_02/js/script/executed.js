@@ -1,4 +1,4 @@
-import {BREEDTYPE, RENDER, PET} from './data.js';
+import {BREEDTYPE, RENDER, PET, PETKEY} from './data.js';
 import {DATE, STORE} from './utility.js';
 import {RENDERVIEW} from './render.js';
 
@@ -381,13 +381,50 @@ export const EXECURED = {
     },
 
 
-
-
+    /**
+     * 
+     * Method import data.
+     * @param {*} importFile content data you want import to data.
+     */
     import: function(importFile) {
         let fr = new FileReader();
         fr.readAsText(importFile.files[0]);
         fr.onload = function() {
-            console.log(fr.result);
+            let data = JSON.parse(fr.result);
+            let pets = STORE.get('PETS');
+
+            if(Array.isArray(data)) {
+                if(data.length) {
+                    data.forEach((elm) => {
+                        let pet = new PET(null, null, null, DATE.currentDate(), null,null, null,null,null,null,null,null);
+                        PETKEY.forEach((key) => {
+                            if(elm.hasOwnProperty(key)) {
+                                pet[key] = elm[key];
+                            }
+                        })
+                        pets.push(pet);
+                    })
+
+                } else {
+                    console.log('Import data failed');
+                }
+
+            } else {
+                let pet = new PET(null, null, null, DATE.currentDate(), null,null, null,null,null,null,null,null);
+                PETKEY.forEach((key) => {
+                    if(data.hasOwnProperty(key)) {
+                        pet[key] = data[key];
+                    }
+                })
+                pets.push(pet);
+            }
+
+            if(STORE.save('PETS', pets)) {
+                window.location.reload();
+
+            } else {
+                alert('Save failed');
+            }
         }
     },
 
