@@ -294,6 +294,16 @@ export const EXECURED = {
 
     /**
      * 
+     * Method handle event action on template report page.
+     */
+    pageReportAction: function() {
+        METHOD.toggleTab();
+    },
+
+
+
+    /**
+     * 
      * Method edit information model pet.
      * @param {*} form form need validation.
      * @param {*} fields multiple fileds (input, select, checkbox, radiobutton, ...).
@@ -327,6 +337,23 @@ export const EXECURED = {
         }
 
 
+    },
+
+
+    export: function() {
+        let status = (STORE.check('PETS') && STORE.get('PETS').length); 
+
+        if(status) {
+            let data = JSON.stringify(STORE.get('PETS'));
+
+            let element = document.createElement('a');
+            element.setAttribute('href','data:text/plain;charset=utf-8, ' + encodeURIComponent(data));
+            element.setAttribute('download', 'data.json');
+            element.click();
+
+        } else {
+            alert(`Can't export data`);
+        }
     },
 
 

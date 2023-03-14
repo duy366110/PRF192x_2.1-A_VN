@@ -1,0 +1,28 @@
+/*
+    SPACING SYSTEM (PX)
+    2/4/5/8/12/16/24/32/48/64/80/96/128
+
+    FONT SIZE SYSTEM (PX)
+    10/12/14/16/18/20/24/30/36/44/52/62/74/86/98
+
+    BORDER COLOR: #161929
+
+    MAIN COLOR: #6d7fcc
+    TWO COLOR: #414c7a
+
+    TEXT COLOR: #0b0d14
+*/
+
+/* COMMONS STYLE */
+@import url('./styles/fonts.css');
+@import url('./styles/root.css');
+@import url('./styles/commons/input.css');
+@import url('./styles/commons/controler.css');
+@import url('./styles/header.css');
+@import url('./styles/silde-bar.css');
+@import url('./styles/footer.css');
+
+.form-control-file {
+    height: fit-content;
+    padding: 0px;
+}

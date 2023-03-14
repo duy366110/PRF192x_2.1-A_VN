@@ -274,6 +274,16 @@ export const VALIDATION = (() => {
                         EXECURED.find(fields);
                         break
 
+                    case 'report':
+                        if(event.submitter.classList.contains('btn-import')) {
+                            console.log('Bạn thục hiện import');
+                        }
+
+                        if(event.submitter.classList.contains('btn-export')) {
+                            EXECURED.export();
+                        }
+                        break;
+
                     case 'save':
                     default:
                         EXECURED.save(form, fields, form.dataset.storage);

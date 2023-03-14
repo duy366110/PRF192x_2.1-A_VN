@@ -21,3 +21,8 @@ export const PETINFO = {
     vaccinated: $('#pet-vaccinated'),
     weight: $('#pet-weight'),
 }
+
+export const REPORTINFO = {
+    file: $('#data-file'),
+    infor: $('#info'),
+}

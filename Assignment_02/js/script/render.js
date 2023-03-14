@@ -185,12 +185,15 @@ export const RENDERVIEW = (function() {
 
             } else {
 
+                // Delete property (default / empty) onject condition.
                 Object.keys(condition).forEach((key) => {
                     if((condition[key] === 'default') || (!condition[key])) {
                         delete condition[key];
                     }
                 })
 
+
+                // Filter object by passed condition.
                 if(Object.keys(condition).length) {
                     Object.keys(condition).forEach((key) => {
                         pets = pets.filter((elm) => {
@@ -206,6 +209,7 @@ export const RENDERVIEW = (function() {
                             }
                         })
                     })
+                    
                 } else {
                     pets = [];
                 }
