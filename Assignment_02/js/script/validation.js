@@ -276,7 +276,9 @@ export const VALIDATION = (() => {
 
                     case 'report':
                         if(event.submitter.classList.contains('btn-import')) {
-                            console.log('Bạn thục hiện import');
+                            fields.forEach((file) => {
+                                EXECURED.import(file.field);
+                            })
                         }
 
                         if(event.submitter.classList.contains('btn-export')) {
