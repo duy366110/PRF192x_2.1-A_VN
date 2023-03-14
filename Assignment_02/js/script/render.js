@@ -12,9 +12,10 @@ export const RENDERVIEW = (function() {
      * @returns template icon.
      */
     let icon = function(color, status) {
-        let Template = '';
+        let template = '';
+
         if(color) {
-            Template += `
+            template += `
             <svg class="icons" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                 <path fill='${color}' fill-rule="evenodd" d="M4.5 7.5a3 3 0 013-3h9a3 3 0 013 3v9a3 3 0 01-3 3h-9a3 3 0 01-3-3v-9z" clip-rule="evenodd" />
             </svg>
@@ -22,14 +23,14 @@ export const RENDERVIEW = (function() {
 
         } else {
             if(status) {
-                Template += `
+                template += `
                 <svg class="icons icons-true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                     <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
                 </svg>
                 `;
 
             } else {
-                Template += `
+                template += `
                 <svg class="icons icons-false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                     <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z" clip-rule="evenodd" />
                 </svg>
@@ -37,8 +38,9 @@ export const RENDERVIEW = (function() {
             }
         }
 
-        return Template;
+        return template;
     }
+
 
     return {
 
@@ -50,8 +52,9 @@ export const RENDERVIEW = (function() {
          */
         optionBreed: (value) => {
             let breed = $('#pet-breed');
-            let breeds = (STORE.check('BREED'))? STORE.get('BREED') : [] ;
             let type = $('#pet-type');
+
+            let breeds = (STORE.check('BREED'))? STORE.get('BREED') : [] ;
             let template = '<option value="default">Select breed</option>';
 
             if(Array.isArray(breeds) && breeds.length) {
@@ -140,13 +143,11 @@ export const RENDERVIEW = (function() {
          */
         viewBreed: () => {
             let viewer = $('#tbody');
-            let breeds = [];
-            let template = ``;
             let status = (STORE.check('BREED') && STORE.get('BREED').length)? true : false;
+            let breeds = status? STORE.get('BREED') : [];
+            let template = ``;
 
             if(status) {
-                breeds = STORE.get('BREED');
-
                 breeds.forEach((elm, index) => {
                     template += `
                         <tr>
@@ -175,27 +176,39 @@ export const RENDERVIEW = (function() {
          */
          viewFind: (status, condition = {}) => {
             let viewer = $('#tbody');
-            let status = (STORE.check('PETS') && STORE.get('PETS').length)? true : false;
-            let pets = status? STORE.get('PETS') : [] ;
+            let state = (STORE.check('PETS') && STORE.get('PETS').length)? true : false;
+            let pets = state? STORE.get('PETS') : [] ;
             let template = ``;
 
             if(!status) {
                 template += `<tr><td class='blanb-view' colspan='14'>Nội dung trống</td></tr>`;
 
             } else {
-                Object.keys(condition).forEach((key) => {
-                    pets = pets.filter((elm) =>{
-                        if((typeof (elm[key]) === 'boolean') && (elm[key] === condition[key])) {
-                            return elm;
-                        }
 
-                        if((typeof (elm[key]) !== 'boolean')) {
-                            if((condition[key] === 'default') || (elm[key].includes(condition[key])) ) {
-                                return elm;
-                            }
-                        }
-                    });
+                Object.keys(condition).forEach((key) => {
+                    if((condition[key] === 'default') || (!condition[key])) {
+                        delete condition[key];
+                    }
                 })
+
+                if(Object.keys(condition).length) {
+                    Object.keys(condition).forEach((key) => {
+                        pets = pets.filter((elm) => {
+                            if((typeof (elm[key]) === 'boolean')) {
+                                if(elm[key] === condition[key]) {
+                                    return elm;
+                                }
+
+                            } else {
+                                if((elm[key].includes(condition[key])) ) {
+                                    return elm;
+                                }
+                            }
+                        })
+                    })
+                } else {
+                    pets = [];
+                }
 
                 if(pets.length) {
                     pets.forEach(pet => {

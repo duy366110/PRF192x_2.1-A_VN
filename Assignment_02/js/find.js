@@ -1,7 +1,6 @@
 "use strict";
 import {PETINFO} from './script/query.js';
 import {VALIDATION} from './script/validation.js';
-import {MESSAGES} from './script/data.js';
 import {EXECURED} from './script/executed.js';
 import {RENDERVIEW} from './script/render.js';
 

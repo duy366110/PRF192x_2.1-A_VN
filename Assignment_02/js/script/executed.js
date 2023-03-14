@@ -316,7 +316,7 @@ export const EXECURED = {
 
             if(STORE.save('PETS', pets)) {
                 form.reset();
-                RENDERVIEW.view(false, 'main');
+                RENDERVIEW.view(false, 'edit');
     
             } else {
                 alert('edit element failed');
@@ -341,8 +341,10 @@ export const EXECURED = {
         fields.forEach((elm) => {
             if(elm.type === 'checkbox') {
                 condition[elm.name] = elm.field.checked;
+
+            } else {
+                condition[elm.name ] = elm.field.value;
             }
-            condition[elm.name ] = elm.field.value;
         })
         RENDERVIEW.viewFind(true, condition);
     },
