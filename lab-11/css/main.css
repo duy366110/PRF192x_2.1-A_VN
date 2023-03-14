@@ -19,8 +19,25 @@ body {
     top: 50%;
 }
 
+.actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
 .btn {
     font-size: 20px;
     padding: 5px 15px;
+}
+
+
+table {
+    border-collapse: collapse;
+}
+table thead th, table tbody td {
+    color: white;
+    border: 1px solid hsl(144deg 97.29% 16.68%);
+    padding: 10px 15px;
 }
 
