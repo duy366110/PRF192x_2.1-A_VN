@@ -33,33 +33,33 @@ export const RENDERVIEW = (function() {
     }
 
     return {
-        optionBreed: () => {
+
+
+        /**
+         * 
+         * Method render option breed.
+         * @param {*} value when edit thi's value of PET.breed before edit.
+         */
+        optionBreed: (value) => {
             let breed = $('#pet-breed');
-            let breeds = [];
+            let breeds = (STORE.check('BREED'))? STORE.get('BREED') : [] ;
             let type = $('#pet-type');
             let template = '<option value="default">Select breed</option>';
 
-            if(STORE.check('BREED')) {
-                breeds = STORE.get('BREED');
-                
+            if(Array.isArray(breeds) && breeds.length) {
                 if(type.value !== 'default') {
                     breeds = breeds.filter((elm) => elm.type === type.value);
                 }
 
                 breeds.forEach((elm) => {
-                    template +=`
-                    <option value="${elm.breed}">${elm.breed}</option>
-                    `;
+                    template +=`<option value="${elm.breed}">${elm.breed}</option>`;
                 })
             }
-
             breed.innerHTML = template;
-        },
 
-        updateBreed: function(value) {
-            this.optionBreed();
-            let breed = $('#pet-breed');
-            breed.value = value;
+            if(value){
+                breed.value = value;
+            }
         },
 
         view: (bmi, viewType) => {

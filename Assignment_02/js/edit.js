@@ -141,7 +141,7 @@ window.onload = function(event) {
         return {
             event: {
                 ACTION: EXECURED.pageEditAction(fields),
-                OPTION: RENDERVIEW.optionBreed,
+                OPTION: RENDERVIEW.optionBreed(''),
                 VIEW: RENDERVIEW.view,
             }
         }
@@ -149,6 +149,6 @@ window.onload = function(event) {
     })()
 
     app.event.ACTION;
-    app.event.OPTION();
+    app.event.OPTION;
     app.event.VIEW(false, 'edit');
 }

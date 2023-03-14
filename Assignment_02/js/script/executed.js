@@ -6,14 +6,25 @@ let $ = document.querySelector.bind(document);
 let $$ = document.querySelectorAll.bind(document);
 
 const METHOD = {
-    binDataToView: function(fields) {
 
+
+    /**
+     * 
+     * Method fill data from resource to template (input, select, checkbox, radio, ...).
+     * @param {*} fields list element input data on template.
+     */
+    binDataToView: function(fields) {
+        let pet = {};
         let viewRoot = $('#tbody');
+
         viewRoot.addEventListener('click', function(event) {
             if(event.target.classList.contains('btn-pet-edit')) {
-                let pet = {};
                 Object.assign(pet, ...STORE.get('PETS').filter((elm) => elm.id === event.target.dataset.id));
 
+
+                /**
+                 * Loop list field through field.name binding data to template (input, select, checkbox, radio, ...).
+                 */
                 fields.forEach((elm) => {
                     if(elm.field.type === 'checkbox') {
                         elm.field.checked = (pet[elm.name])? true : false;
@@ -21,18 +32,36 @@ const METHOD = {
                     elm.field.value = pet[elm.name];
                 })
 
-                RENDERVIEW.updateBreed(pet.breed);
+                RENDERVIEW.optionBreed(pet.breed);
             }
         })
     },
 
+
+
+    /**
+     * Method render view index.html page with property BMI.
+     */
     caculatorBMI: function() {
         $('#caculatorBMI').addEventListener('click', function(event) {
             RENDERVIEW.view(true, 'main');
         })
     },
 
+
+
+    /**
+     * 
+     * Method mpper data from view to model.
+     * @param {*} fields list element input data on template.
+     * @param {*} destination root object (PET or BREED) you want binding data from template to BE.
+     * @returns destination data.
+     */
     convertInfo: function(fields, destination) {
+
+        /**
+         * Return object has key = field.name and value = field.value.
+         */
         let mapper = fields.map((e) => {
             let value;
             if(e.field?.type === 'checkbox') {
@@ -48,6 +77,9 @@ const METHOD = {
             }
         })
 
+        /**
+         * Through model key binding value from mapper to model
+         */
         Object.keys(destination).forEach((key) => {
             mapper.forEach((e) => {
                 if(e.name === key) {
@@ -59,6 +91,14 @@ const METHOD = {
         return destination;
     },
 
+
+
+    /**
+     * 
+     * Method delete model in list models.
+     * @param {*} type delete method execution on model (PET or BREED).
+     * @param {*} id model (PET or BREED).
+     */
     deleteInfo: function(type, id) {
         let model = [];
         let state = false;
@@ -80,6 +120,11 @@ const METHOD = {
 
 
 
+    /**
+     * 
+     * Methid through condition input render view model.
+     * @param {*} fields list element input data on template.
+     */
     findByCondition: function(fields) {
         let condition = {};
 
@@ -111,24 +156,29 @@ const METHOD = {
         
     },
 
-    findSetCondition: function(key, value) {
-        const condition = {};
-        condition[key] = value;
-        return 
-    },
 
+
+    /**
+     * Method render pet breed through pet type when change value.
+     */
     renderBreedByType: function() {
         let type = $('#pet-type');
         type.addEventListener('change', function(event) {
-            RENDERVIEW.optionBreed();
+            RENDERVIEW.optionBreed('');
         })
     },
 
+
+
+    /**
+     * Method render PET model healthy width condition (vaccinated = true, dewormed = true, sterilized = true)
+     */
     renderPetHealthy: function() {
         let btn = $('#petHealthy');
-
         let render = (STORE.check('RENDER'))? STORE.get('RENDER') : RENDER;
 
+
+        // When first load (load page) render.
         if(render.key === 'SA') {
             btn.textContent = 'Show Healthy Pet';
             btn.classList.remove('show-healthy-pet');
@@ -139,6 +189,7 @@ const METHOD = {
         }
 
 
+        // When event change rerender view through condition.
         btn.addEventListener('click', function(event) {
             if(this.classList.contains('show-healthy-pet')) {
                 // SHOW ALL PET
@@ -160,6 +211,11 @@ const METHOD = {
         })
     },
 
+
+    
+    /**
+     * Method toggle silde bar.
+     */
     toggleTab: function() {
         let header = $('#header');
         let main = $('#main');
@@ -186,6 +242,11 @@ const METHOD = {
 }
 
 export const EXECURED = {
+
+    /**
+     * 
+     * Method handle event action on template main page.
+     */
     pageMainAction: function() {
         METHOD.caculatorBMI();
         METHOD.renderBreedByType();
@@ -193,16 +254,34 @@ export const EXECURED = {
         METHOD.toggleTab();
     },
 
+
+
+    /**
+     * 
+     * Method handle event action on template breed page.
+     */
     pageBreedAction: function() {
         METHOD.toggleTab();
     },
 
+
+    /**
+     * 
+     * Method handle event action on template page edit.
+     * @param {*} fields list element input data on template.
+     */
     pageEditAction: function(fields) {
         METHOD.binDataToView(fields);
         METHOD.renderBreedByType();
         METHOD.toggleTab();
     },
 
+
+    /**
+     * 
+     * Method handle event action on template find page.
+     * @param {*} fields list element input data on template.
+     */
     pageFindAcion: function(fields) {
         METHOD.renderBreedByType();
         METHOD.findByCondition(fields);
