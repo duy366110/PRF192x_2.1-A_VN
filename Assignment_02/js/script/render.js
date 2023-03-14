@@ -3,6 +3,14 @@ import {STORE} from './utility.js';
 let $ = document.querySelector.bind(document);
 
 export const RENDERVIEW = (function() {
+
+    /**
+     * 
+     * Methdo render icon.
+     * @param {*} color want fill icon.
+     * @param {*} status render cion true or false
+     * @returns template icon.
+     */
     let icon = function(color, status) {
         let Template = '';
         if(color) {
@@ -62,15 +70,22 @@ export const RENDERVIEW = (function() {
             }
         },
 
+
+
+        /**
+         * 
+         * Method render view two page index.htm and edit.html.
+         * @param {*} bmi status caculator BMI pet.
+         * @param {*} viewType type view render button delete (view main) or edit (view edit).
+         */
         view: (bmi, viewType) => {
             let viewer = $('#tbody');
-            let pets = [];
             let status = (STORE.check('PETS') && STORE.get('PETS').length)? true : false;
+            let pets = status? STORE.get('PETS') : [] ;
             let render = (STORE.get('RENDER')?.key === 'SH')? STORE.get('RENDER') : {key: 'SA'};
             let template = ``;
 
             if(status) {
-                pets = STORE.get('PETS');
                 if(render.key === 'SH') {
                     pets = pets.filter((pet) => {
                         if(pet.vaccinated && pet.dewormed && pet.sterilized) {
@@ -118,6 +133,11 @@ export const RENDERVIEW = (function() {
             viewer.innerHTML = template;
         },
 
+
+
+        /**
+         * Method render view breed for page breed.html.
+         */
         viewBreed: () => {
             let viewer = $('#tbody');
             let breeds = [];
@@ -145,15 +165,24 @@ export const RENDERVIEW = (function() {
             viewer.innerHTML = template;
         },
 
+
+
+        /**
+         * 
+         * Method render view when user find pet in data.
+         * @param {*} status render default bland page.
+         * @param {*} condition render view with element.
+         */
          viewFind: (status, condition = {}) => {
             let viewer = $('#tbody');
+            let status = (STORE.check('PETS') && STORE.get('PETS').length)? true : false;
+            let pets = status? STORE.get('PETS') : [] ;
             let template = ``;
 
-            if(!status || !STORE.check('PETS') || !STORE.get('PETS').length) {
+            if(!status) {
                 template += `<tr><td class='blanb-view' colspan='14'>Nội dung trống</td></tr>`;
+
             } else {
-                console.log(condition);
-                let pets = STORE.get('PETS');
                 Object.keys(condition).forEach((key) => {
                     pets = pets.filter((elm) =>{
                         if((typeof (elm[key]) === 'boolean') && (elm[key] === condition[key])) {
@@ -192,7 +221,6 @@ export const RENDERVIEW = (function() {
                 } else {
                     template += `<tr><td class='blanb-view' colspan='14'>Nội dung trống</td></tr>`;
                 }
-
             }
 
             viewer.innerHTML = template;

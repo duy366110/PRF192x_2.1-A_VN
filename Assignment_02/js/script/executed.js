@@ -265,6 +265,7 @@ export const EXECURED = {
     },
 
 
+
     /**
      * 
      * Method handle event action on template page edit.
@@ -275,6 +276,7 @@ export const EXECURED = {
         METHOD.renderBreedByType();
         METHOD.toggleTab();
     },
+
 
 
     /**
@@ -288,22 +290,28 @@ export const EXECURED = {
         METHOD.toggleTab();
     },
 
+
+
+    /**
+     * 
+     * Method edit information model pet.
+     * @param {*} form form need validation.
+     * @param {*} fields multiple fileds (input, select, checkbox, radiobutton, ...).
+     */
     edit: function(form, fields) {
         let model;
-        let pets = [];
+        let pets = (STORE.check('PETS') && STORE.get('PETS').length)? STORE.get('PETS') : [];
         let pet = new PET(null, null, null, '', null,null, null,null,null,null,null,null);
         model = METHOD.convertInfo(fields, pet);
         
-        if(model.id && STORE.check('PETS') && STORE.get('PETS').some((elm) => elm.id === model.id)) {
-            model.createDate = STORE.get('PETS').filter((elm) => elm.id === model.id)[0].createDate;
+        if(model.id) {
+            model.createDate = pets.filter((elm) => elm.id === model.id)[0].createDate;
             model.caculatorBMI();
 
-            pets = STORE.get('PETS');
-            pets = pets.map((elm) => {
+            pets.forEach((elm) => {
                 if(elm.id === model.id) {
                     Object.assign(elm, model);
                 }
-                return elm;
             })
 
             if(STORE.save('PETS', pets)) {
@@ -321,6 +329,13 @@ export const EXECURED = {
 
     },
 
+
+
+    /**
+     * 
+     * Method find element pet in list pets.
+     * @param {*} fields multiple fileds (input, select, checkbox, radiobutton, ...).
+     */
     find: function(fields) {
         let condition = {};
         fields.forEach((elm) => {
@@ -332,6 +347,11 @@ export const EXECURED = {
         RENDERVIEW.viewFind(true, condition);
     },
 
+
+
+    /**
+     * Method delete element pet or breed in list (PETS or BREEDS).
+     */
     remove: function() {
         let viewRoot = $('#tbody');
         viewRoot.addEventListener('click', function(event) {
@@ -345,9 +365,18 @@ export const EXECURED = {
         })
     },
 
+
+
+    /**
+     * 
+     * Method save model pet or breed to data (PETS or BREEDS).
+     * @param {*} form form need validation.
+     * @param {*} fields multiple fileds (input, select, checkbox, radiobutton, ...).
+     * @param {*} storage key save model to data.
+     */
     save: (form, fields, storage) => {
         let model;
-        let olData = [];
+        let models = [];
 
         if(storage === 'BREED') {
             let breedType = new BREEDTYPE(null, null);
@@ -362,11 +391,11 @@ export const EXECURED = {
         }
 
         if(STORE.check(storage)) {
-            Object.assign(olData, STORE.get(storage));
+            Object.assign(models, STORE.get(storage));
         }
-        olData.push(model);
+        models.push(model);
 
-        if(STORE.save(storage, olData)) {
+        if(STORE.save(storage, models)) {
             form.reset();
 
             if(storage === 'BREED') { RENDERVIEW.viewBreed(); }
