@@ -9,6 +9,7 @@ export const MESSAGES = {
         uniqueID: 'ID must be unique!',
         rangeDefault: 'Value must be between',
         type: 'Please select Type!',
+        typeFile: 'File type incorrect',
         weight: 'Weight must be between 1 and 15!',
     }
 }
@@ -21,6 +22,12 @@ export function BREEDTYPE(breed, type) {
     this.breed = breed;
     this.type = type;
 }
+
+export const PETKEY =  [
+    'age', 'bmi', 'breed', 'color', 'createDate',
+    'dewormed', 'id', 'length', 'name', 'sterilized',
+    'type', 'vaccinated', 'weight'
+]
 
 export function PET(age, breed, color, createDate, dewormed, length, id, name, sterilized, type, weight, vaccinated) {
     this.age = age;

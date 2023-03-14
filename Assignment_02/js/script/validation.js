@@ -37,6 +37,12 @@ function VALIDATIONRULE() {
     }
 
 
+    this.file = function(el, message) {
+        message = (message)? message :  MESSAGES.ERRORS.number;
+        console.log(el.field.files);
+    }
+
+
     
     /**
      * 
@@ -196,6 +202,10 @@ export const VALIDATION = (() => {
     function mapperValidation(field, rule) {
         let status = true;
         switch(rule.condition) {
+            case 'file':
+                status = validationRule.file(field, rule.message);
+                break
+
             case 'number':
                 status = validationRule.num(field, rule.message);
                 break

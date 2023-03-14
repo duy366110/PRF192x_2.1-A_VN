@@ -1,5 +1,6 @@
 "use strict";
 import {REPORTINFO} from './script/query.js';
+import {MESSAGES} from './script/data.js';
 import {VALIDATION} from './script/validation.js';
 import {EXECURED} from './script/executed.js';
 
@@ -10,7 +11,12 @@ window.onload = function(event) {
                 field: REPORTINFO.file,
                 name: 'report',
                 type: 'file',
-                rules: []
+                rules: [
+                    {
+                        condition: 'file',
+                        message: `${MESSAGES.ERRORS.typeFile}, need type *.json`
+                    }
+                ]
             }
         ];
 
