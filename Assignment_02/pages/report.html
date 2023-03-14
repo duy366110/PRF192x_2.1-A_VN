@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/bootstrap/bootstrap.min.css"/>
-    <link rel="stylesheet" href="../css/main.css"/>
-    <title>ASSIGNMENT - 02 - FIND</title>
+    <link rel="stylesheet" href="../css/report.css">
+    <title>ASSIGNMENT - 02 - REPORT</title>
 </head>
 <body>
     <header id="header">
         <div class="container-fluid">
             <nav class="navigation d-flex align-items-center p-y2-x1-5">
-                <h1 class="project-title">Search pet</h1>
+                <h1 class="project-title">Import  / Export Data</h1>
             </nav>
         </div>
     </header> 
@@ -21,92 +21,21 @@
         <div class="container-fluid">
             <section class="controller d-flex align-items-center justify-content-center">
                 <div class="controller-pet controller-wrapper">
-                    <form id="info" data-storage="PETS" class="row">
-
-                        <div class="form-group form-group-single col-12 col-md-7">
-                            <label class="title w-11" for="pet-id">Pet ID</label>
-                            <div class="w-100">
-                                <input type="text" class="form-control" id="pet-id" name="pet-id" placeholder="Input ID"/>
-                                <small id="pet-id-message" class="form-text text-muted"></small>
-                            </div>
-                        </div>
-
-                        <div class="form-group form-group-single col-12 col-md-5">
-                            <label class="title w-11" for="pet-name">Pet name</label>
-                            <div class="w-100">
-                                <input type="text" class="form-control double-form-control" id="pet-name" name="pet-name" placeholder="Input name"/>
-                                <small id="pet-name-message" class="form-text text-muted"></small>
-                            </div>
-                        </div>
-
-                        <div class="form-group col-12 col-md-7">
-                            <label class="title w-11" for="pet-type">Type</label>
-                            <div class="w-100">
-                                <select class="form-control" id="pet-type" name="pet-type">
-                                    <option value="default">Select type</option>
-                                    <option value="Cat">Cat</option>
-                                    <option value="Dog">Dog</option>
-                                </select>
-                                <small id="pet-type-message" class="form-text text-muted"></small>
-                            </div>
-                        </div>
-
-                        <div class="form-group col-12 col-md-5">
-                            <label class="title w-11" for="pet-breed">Breed</label>
-                            <div class="w-100">
-                                <select class="form-control double-form-control" id="pet-breed" name="pet-breed"></select>
-                                <small id="pet-breed-message" class="form-text text-muted"></small>
-                            </div>
-                        </div>
-
-                        <div class="vaccinated d-flex align-items-center col-12">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="vaccinated" id="pet-vaccinated" name="vaccinated">
-                                <label class="form-check-label" for="pet-vaccinated">Vaccinated</label>
-                                <small id="pet-vaccinated-message" class="form-text text-muted"></small>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="dewormed" id="pet-dewormed" name="dewormed">
-                                <label class="form-check-label" for="pet-dewormed">Dewormed</label>
-                                <small id="pet-dewormed-message" class="form-text text-muted"></small>
-                            </div>
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="sterilized" id="pet-sterilized" name="sterilized">
-                                <label class="form-check-label" for="pet-sterilized">Sterilized</label>
-                                <small id="pet-sterilized-message" class="form-text text-muted"></small>
-                            </div>
+                    <form id="info" data-storage="PETS" class="row" enctype="multipart/form-data">
+                        <div class="form-group form-group-single col-12">
+                          <label class="title w-10" for="data-file">File source</label>
+                          <div class="w-100">
+                            <input type="file" class="form-control form-control-file" id="data-file" name="data-file" accept=".json"/>
+                            <small id="data-file-message" class="form-text text-muted"></small>
+                          </div>
                         </div>
 
                         <div class="col-12 mt-5">
-                            <button type="submit" class="btn btn-action btn-primary">Find</button>
+                            <button type="submit" class="btn btn-action btn-import btn-primary">Import Data</button>
+                            <button type="submit" class="btn btn-action btn-export btn-primary">Export Data</button>
                         </div>
                       </form>
                 </div>
-            </section>
-
-            <section class="viewer p-y2-x1-5">
-                <table id="test" class="table table-striped table-hover">
-                    <thead>
-                      <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Age</th>
-                        <th scope="col">Type</th>
-                        <th scope="col">Weight</th>
-                        <th scope="col">Length</th>
-                        <th scope="col">Breed</th>
-                        <th scope="col">Color</th>
-                        <th scope="col">vaccinated</th>
-                        <th scope="col">Dewormed</th>
-                        <th scope="col">Sterilized</th>
-                        <th scope="col">BMI</th>
-                        <th scope="col">Date Added</th>
-                        <!-- <th scope="col">Action</th> -->
-                      </tr>
-                    </thead>
-                    <tbody id="tbody"></tbody>
-                  </table>
             </section>
         </div>
     </main>
@@ -179,6 +108,6 @@
     
     <script src="../js/bootstrap/jquery-3.6.3.js"></script>
     <script src="../js/bootstrap/bootstrap.min.js"></script>
-    <script type="module" src="../js/find.js"></script>
+    <script type="module" src="../js/report.js"></script>
 </body>
 </html>
