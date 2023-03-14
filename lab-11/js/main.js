@@ -1,6 +1,7 @@
 window.onload = function(event) {
     let answer = document.getElementById('answer');
     let result = document.getElementById('result');
+    let row = document.getElementById('row');
 
     const poll = {
         question: "What is your favourite programming language? ",
@@ -35,6 +36,11 @@ window.onload = function(event) {
     })
 
     result.addEventListener('click', function(event) {
-        console.log('Hien kết quả lựa chọn');
+        let template = ``;
+        poll.numberOfVotes.forEach((elm) => {
+            template += `<td>${elm}</td>`;
+        })
+
+        row.innerHTML = template;
     })
 }
